@@ -14,16 +14,14 @@ import java.sql.*;
  * @author lakis
  */
 public class Room {
-        private String roomNumber;
+        private static String roomNumber;
 	float rental;
 	int occupied = 0;
 	int capasity;
 	char block;
 	
-	public String assignRoom (Guest guest) {
-		boolean adult = guest.isAge();
-		boolean gender = guest.isGender();
-		
+	public static String assignRoom (boolean gender, boolean age) {
+			
 		/*
 		 * Adults
 		 * 	Male - Block M
@@ -34,7 +32,7 @@ public class Room {
 		 * 	Female - Block G
 		 */
 		
-		if (adult == true) {
+		if (age == true) {
 			if (gender == true) {
 				String roomNumber = findVacantRoom('M');
 			}
@@ -56,7 +54,7 @@ public class Room {
 		return roomNumber;
 	}
 
-	private String findVacantRoom(char block) {
+	private static String findVacantRoom(char block) {
 		try {
 			String roomNumber = null;
 			Class.forName(Database.dbDriver);
