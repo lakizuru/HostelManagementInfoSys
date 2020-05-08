@@ -109,6 +109,11 @@ public class AddStaff extends javax.swing.JFrame {
 
         female.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         female.setText("Female");
+        female.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                femaleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -417,6 +422,10 @@ public class AddStaff extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_femaleActionPerformed
 
     /**
      * @param args the command line arguments
