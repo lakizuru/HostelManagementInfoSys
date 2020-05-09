@@ -63,15 +63,15 @@ public class AddStaff extends javax.swing.JFrame {
         password1 = new javax.swing.JPasswordField();
         cancelButton = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        dept = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         salary = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        bank = new javax.swing.JTextField();
         accNo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
+        bank = new javax.swing.JComboBox<>();
+        dept = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,10 +172,6 @@ public class AddStaff extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("SALARY DETAILS");
 
-        dept.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        dept.setModel(new javax.swing.SpinnerListModel(new String[] {"Kitchen", "Administraion", "Laundry", "Cleaning", "Technical"}));
-        dept.setEditor(new javax.swing.JSpinner.ListEditor(dept));
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Department");
 
@@ -186,8 +182,6 @@ public class AddStaff extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Bank");
-
-        bank.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         accNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -201,6 +195,12 @@ public class AddStaff extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
+
+        bank.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sampath", "BOC", "People's", "NSB", "NTB", "HNB" }));
+
+        dept.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dept.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kitchen", "Laundry", "Cleaning", "Technical" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,23 +254,21 @@ public class AddStaff extends javax.swing.JFrame {
                                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dept))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bank))))))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dept, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bank, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(accNo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(accNo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel11)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -306,22 +304,17 @@ public class AddStaff extends javax.swing.JFrame {
                             .addComponent(dept, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(salary)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(salary))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(accNo))
-                        .addGap(11, 11, 11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bank, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accNo))
+                .addGap(11, 11, 11)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -335,9 +328,6 @@ public class AddStaff extends javax.swing.JFrame {
                     .addComponent(submitButton))
                 .addContainerGap())
         );
-
-        dept.getAccessibleContext().setAccessibleName("");
-        dept.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -370,7 +360,7 @@ public class AddStaff extends javax.swing.JFrame {
                                                 if(Validate.isDeptValid(dept.toString())) {
 
                                                         //checks salary details
-                                                        if (Validate.isMoneyValid(salary.getText()) || Validate.isNameValid(bank.getText()) || Validate.isMoneyValid(accNo.getText())) {
+                                                        if (Validate.isMoneyValid(salary.getText()) || Validate.isMoneyValid(accNo.getText())) {
                                                                 // Converting gender Radio Button Inputs to boolean
                                                                 
 
@@ -382,7 +372,7 @@ public class AddStaff extends javax.swing.JFrame {
                                                                 }
 
                                                                 //Creating staff object
-                                                                Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getText(), accNo.getText(), dept.toString() );
+                                                                Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), dept.toString() );
 
                                                                 //creating a DB entry for the new staff
                                                                 Staff.newStaff(staff);
@@ -465,9 +455,9 @@ public class AddStaff extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField accNo;
     private javax.swing.JTextField address;
-    private javax.swing.JTextField bank;
+    private javax.swing.JComboBox<String> bank;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JSpinner dept;
+    private javax.swing.JComboBox<String> dept;
     private javax.swing.JRadioButton female;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

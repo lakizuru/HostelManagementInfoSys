@@ -42,7 +42,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        addGuest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -70,29 +69,15 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HOME", jPanel2);
 
-        addGuest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        addGuest.setText("NEW GUEST");
-        addGuest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addGuestActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(520, Short.MAX_VALUE)
-                .addComponent(addGuest)
-                .addContainerGap())
+            .addGap(0, 671, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(290, Short.MAX_VALUE)
-                .addComponent(addGuest)
-                .addContainerGap())
+            .addGap(0, 332, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("GUESTS", jPanel3);
@@ -241,11 +226,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logoutBtnActionPerformed
 
-    private void addGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGuestActionPerformed
-        // TODO add your handling code here:
-        new AddGuest().setVisible(true);
-    }//GEN-LAST:event_addGuestActionPerformed
-
     private void addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStaffActionPerformed
         // TODO add your handling code here:
         new AddStaff().setVisible(true);
@@ -293,7 +273,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAdminModer1;
-    private javax.swing.JButton addGuest;
     private javax.swing.JButton addStaff;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
