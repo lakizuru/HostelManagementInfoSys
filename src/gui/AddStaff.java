@@ -378,7 +378,7 @@ public class AddStaff extends javax.swing.JFrame {
                                                                 Staff.newStaff(staff);
                                                                 Staff.newAccount(username.getText(), pass1, "STAFF");
 
-                                                                System.exit(0); // Closes JFrame
+                                                                this.dispose(); // Closes JFrame
                                                         }
 
                                                         else {

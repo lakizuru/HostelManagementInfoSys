@@ -387,7 +387,7 @@ public class AddGuest extends javax.swing.JFrame {
                                                         //Creating Guest Object
                                                         Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, Room.assignRoom(age, gender), age, eName.getText(), ePhone.getText());
 
-                                                        //Creating a DB entry
+                                                        //Creating a DB entries
                                                         Guest.newGuest(guest);
 
                                                         Guest.newAccount(username.getText(), pass1, "GUEST");

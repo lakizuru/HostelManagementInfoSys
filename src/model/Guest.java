@@ -76,7 +76,7 @@ public class Guest extends User {
             //Openning DB connection
             Class.forName(Database.dbDriver);
             Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
-            Statement statement = connection.createStatement();
+            //Statement statement = connection.createStatement();
 
             User.newUser(guest);
 
