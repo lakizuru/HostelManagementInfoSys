@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/gui/AddRoom.java</file>
-            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/model/Room.java</file>
-            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/model/Staff.java</file>
-            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/util/Validate.java</file>
-            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/gui/AddStaff.java</file>
+            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/service/GuestServices.java</file>
+            <file>file:/C:/Users/lakis/Desktop/Hostel%20Management%20Information%20System/src/gui/AddGuest.java</file>
         </group>
     </open-files>
 </project-private>

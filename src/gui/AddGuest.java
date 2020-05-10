@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import util.Validate;
-import model.Guest;
 import model.Room;
 import javax.swing.JOptionPane;
-
+import model.Guest;
+import service.GuestServices;
+import service.GuestServicesImpl;
+import service.UserServices;
+import service.UserServicesImpl;
 /**
  *
- * @author lakis
+ * @author Semasinghe L.S. IT19051130
  */
 public class AddGuest extends javax.swing.JFrame {
     
@@ -388,9 +386,11 @@ public class AddGuest extends javax.swing.JFrame {
                                                         Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, Room.assignRoom(age, gender), age, eName.getText(), ePhone.getText());
 
                                                         //Creating a DB entries
-                                                        Guest.newGuest(guest);
+                                                        GuestServices guestService = new GuestServicesImpl();
+                                                        guestService.newGuest(guest);
 
-                                                        Guest.newAccount(username.getText(), pass1, "GUEST");
+                                                        UserServices userService = new UserServicesImpl();
+                                                        userService.newAccount(username.getText(), pass1, "GUEST");
                                                 }
                                                 else {
                                                         JOptionPane.showMessageDialog(null, "Emergency Contact Details you have entered are invalid!\nPlease enter valid details", "Invalid Emergency Contact Info", JOptionPane.ERROR_MESSAGE);

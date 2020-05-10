@@ -4,7 +4,10 @@ import java.util.regex.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author Semasinghe L.S. IT19051130
+ */
 public class Validate {
 	
 	//checks the validity of the new usernames

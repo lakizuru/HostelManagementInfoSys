@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import util.*;
@@ -10,11 +5,9 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
-
 /**
  *
- * @author lakis
+ * @author Semasinghe L.S. IT19051130
  */
 public class Login extends javax.swing.JFrame {
 
@@ -107,24 +100,25 @@ public class Login extends javax.swing.JFrame {
                 Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
                 Statement statement = connection.createStatement();
 
-                String query = "SELECT password, accountType, lastLogin FROM login WHERE username = '" + username.getText() + "'";
+                String queryLoginDetails = "SELECT password, accountType, lastLogin, attempts FROM login WHERE username = '" + username.getText() + "'";
 
-                ResultSet resultSet = statement.executeQuery(query);
+                ResultSet rsUsername = statement.executeQuery(queryLoginDetails);
 
-                if (resultSet.next()) {
+                if (rsUsername.next()) {
                         //resultSet.next();
-                        String passw = resultSet.getString("password");
+                        String passw = rsUsername.getString("password");
+                        int loginAttempts = rsUsername.getInt("attempts");
 
                         if (passw.equals(String.valueOf(password.getPassword()))) {
 
                                 SessionData.setLoggedUser(username.getText());
 
                                 //Retrieving user account type						
-                                String lastLogin = resultSet.getString("lastLogin");
-                                JOptionPane.showMessageDialog(this, "Last Successful Login at: " + lastLogin, "Login Successful!", JOptionPane.INFORMATION_MESSAGE);
+                                String lastLogin = rsUsername.getString("lastLogin");
+                                JOptionPane.showMessageDialog(this, loginAttempts + " unsuccessful login attempt(s) since last successful login at " + lastLogin, "Login Successful!", JOptionPane.INFORMATION_MESSAGE);
 
                                 //Update last login
-                                String queryLastLogin = "UPDATE `oop`.`login` SET `lastLogin` = ? WHERE `username` = ?";
+                                String queryLastLogin = "UPDATE `oop`.`login` SET `lastLogin` = ?, `attempts` = 0 WHERE `username` = ?";
 
                                 //Prepared Statement Queries
                                 PreparedStatement psLastLogin = connection.prepareStatement(queryLastLogin);
@@ -135,7 +129,7 @@ public class Login extends javax.swing.JFrame {
                                 psLastLogin.execute();
 
                                 //Retrieving user account type					
-                                String accType = resultSet.getString("accountType");
+                                String accType = rsUsername.getString("accountType");
 
                                 switch (accType) {
                                 case "ADMIN": {
@@ -157,11 +151,15 @@ public class Login extends javax.swing.JFrame {
 
                         else {
                                 String msg = "Incorrect password!";
+                                loginAttempts++;
+                                String queryAttempts = "UPDATE `oop`.`login` SET `attempts` = " + loginAttempts + " WHERE `username` = '" + username.getText() + "'";
+                                statement.execute(queryAttempts);
                                 JOptionPane.showMessageDialog(null, msg, "Access Denied!" , JOptionPane.ERROR_MESSAGE);
                         }
                 }
                 else {
                         String msg = "No user account found!";
+                        
                         JOptionPane.showMessageDialog(null, msg, "Access Denied!" , JOptionPane.ERROR_MESSAGE);
                 }
 

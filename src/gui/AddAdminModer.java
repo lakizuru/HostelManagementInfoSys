@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.Dimension;
@@ -12,9 +7,11 @@ import util.Database;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import model.Staff;
+import service.UserServices;
+import service.UserServicesImpl;
 /**
  *
- * @author lakis
+ * @author Semasinghe L.S. IT19051130
  */
 public class AddAdminModer extends javax.swing.JFrame {
     private static String accessLevel = "ADMIN";
@@ -409,8 +406,9 @@ public class AddAdminModer extends javax.swing.JFrame {
                                                         Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), "Administration" );
 
                                                         //creating a DB entry for the new staff
-                                                        Staff.newStaff(staff);
-                                                        Staff.newAccount(username.getText(), pass1, accessLevel);
+                                                        UserServices userService = new UserServicesImpl();
+                                                        userService.newUser(staff);
+                                                        userService.newAccount(username.getText(), pass1, accessLevel);
 
                                                         this.dispose(); // Closes JFrame
                                                 }
