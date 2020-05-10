@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
 import util.Validate;
 import model.Staff;
 import javax.swing.JOptionPane;
@@ -21,6 +23,10 @@ public class AddStaff extends javax.swing.JFrame {
      * Creates new form AddStaff
      */
     public AddStaff() {
+        this.setUndecorated(true); //Removing title bar
+        this.setResizable(false); //locking the size
+        getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
+        
         initComponents();
         
         //Centralize the window in the display
@@ -352,10 +358,7 @@ public class AddStaff extends javax.swing.JFrame {
                                 if (Validate.isPhoneValid(phone.getText())) {
 
                                         //checks validity of NIC
-                                        if (Validate.isNICValid(nic.getText())) {
-
-                                                //check department
-                                                if(Validate.isDeptValid(dept.toString())) {
+                                        if (Validate.isNICValid(nic.getText())){
 
                                                         //checks salary details
                                                         if (Validate.isMoneyValid(salary.getText()) || Validate.isMoneyValid(accNo.getText())) {
@@ -373,11 +376,13 @@ public class AddStaff extends javax.swing.JFrame {
                                                                 Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), dept.toString() );
 
                                                                 //creating a DB entry for the new staff
-                                                                StaffServices staffService = new StaffServicesImpl();
-                                                                staffService.newStaff(staff);
                                                                 
                                                                 UserServices userService = new UserServicesImpl();
                                                                 userService.newAccount(username.getText(), pass1, "STAFF");
+                                                                
+                                                                StaffServices staffService = new StaffServicesImpl();
+                                                                staffService.newStaff(staff);
+                                                                
 
                                                                 this.dispose(); // Closes JFrame
                                                         }
@@ -385,12 +390,6 @@ public class AddStaff extends javax.swing.JFrame {
                                                         else {
                                                                 JOptionPane.showMessageDialog(null, "Salary details you have entered are invalid. Please check again", "Invalid Salary Details", JOptionPane.ERROR_MESSAGE);
                                                         }
-
-                                                }
-
-                                                else {
-                                                        JOptionPane.showMessageDialog(null, "Please select one of the departments given", "Invalid Department", JOptionPane.ERROR_MESSAGE);
-                                                }
                                         }
                                         else {
                                                 JOptionPane.showMessageDialog(null, "Entered NIC number is invalid.\nPlease enter a valid NIC number", "Invalid NIC", JOptionPane.ERROR_MESSAGE);

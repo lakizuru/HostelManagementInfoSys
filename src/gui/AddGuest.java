@@ -1,13 +1,17 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
 import util.Validate;
 import model.Room;
 import javax.swing.JOptionPane;
 import model.Guest;
 import service.GuestServices;
 import service.GuestServicesImpl;
+import service.RoomServices;
+import service.RoomServicesImpl;
 import service.UserServices;
 import service.UserServicesImpl;
 /**
@@ -25,6 +29,10 @@ public class AddGuest extends javax.swing.JFrame {
      * Creates new form AddGuest
      */
     public AddGuest() {
+        this.setUndecorated(true); //Removing title bar
+        this.setResizable(false); //locking the size
+        getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
+        
         initComponents();
         
         //Centralize the window in the display
@@ -383,14 +391,16 @@ public class AddGuest extends javax.swing.JFrame {
 
 
                                                         //Creating Guest Object
-                                                        Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, Room.assignRoom(age, gender), age, eName.getText(), ePhone.getText());
+                                                        Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, RoomServicesImpl.assignRoom(age, gender), age, eName.getText(), ePhone.getText());
 
                                                         //Creating a DB entries
+                                                        UserServices userService = new UserServicesImpl();
+                                                        userService.newAccount(username.getText(), pass1, "GUEST");
+                                                        
                                                         GuestServices guestService = new GuestServicesImpl();
                                                         guestService.newGuest(guest);
 
-                                                        UserServices userService = new UserServicesImpl();
-                                                        userService.newAccount(username.getText(), pass1, "GUEST");
+                                                        
                                                 }
                                                 else {
                                                         JOptionPane.showMessageDialog(null, "Emergency Contact Details you have entered are invalid!\nPlease enter valid details", "Invalid Emergency Contact Info", JOptionPane.ERROR_MESSAGE);

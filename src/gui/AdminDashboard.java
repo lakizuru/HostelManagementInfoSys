@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
 import util.SessionData;
 /**
  *
@@ -13,6 +15,10 @@ public class AdminDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     public AdminDashboard() {
+        this.setUndecorated(true); //Removing title bar
+        this.setResizable(false); //locking the size
+        getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
+        
         initComponents();
         
         //Setting username to display
@@ -39,11 +45,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         addAdminModer1 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         loggedUser = new javax.swing.JLabel();
+        minimize = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,15 +111,29 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("STAFF", jPanel4);
 
+        newRoomButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        newRoomButton.setText("NEW ROOM");
+        newRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newRoomButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 796, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(647, Short.MAX_VALUE)
+                .addComponent(newRoomButton)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(343, Short.MAX_VALUE)
+                .addComponent(newRoomButton)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("ROOMS", jPanel5);
@@ -181,6 +203,14 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         loggedUser.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
+        minimize.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        minimize.setText("_");
+        minimize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minimizeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,13 +224,18 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(loggedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logoutBtn)))
+                        .addComponent(logoutBtn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(minimize)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addContainerGap()
+                .addComponent(minimize)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logoutBtn)
                     .addComponent(loggedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -229,6 +264,16 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         new AddAdminModer().setVisible(true);
     }//GEN-LAST:event_addAdminModer1ActionPerformed
+
+    private void newRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoomButtonActionPerformed
+        // TODO add your handling code here:
+        new AddRoom().setVisible(true);
+    }//GEN-LAST:event_newRoomButtonActionPerformed
+
+    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeActionPerformed
+        // TODO add your handling code here:
+        setState(this.ICONIFIED);
+    }//GEN-LAST:event_minimizeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,5 +323,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton minimize;
+    private javax.swing.JButton newRoomButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,10 +1,10 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
 import util.Validate;
-import util.Database;
-import java.sql.*;
 import javax.swing.JOptionPane;
 import model.Staff;
 import service.UserServices;
@@ -20,6 +20,10 @@ public class AddAdminModer extends javax.swing.JFrame {
      * Creates new form AddAdminModer
      */
     public AddAdminModer() {
+        this.setUndecorated(true); //Removing title bar
+        this.setResizable(false); //locking the size
+        getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
+        
         initComponents();
         
         //Initializing the radio buttons
@@ -407,8 +411,9 @@ public class AddAdminModer extends javax.swing.JFrame {
 
                                                         //creating a DB entry for the new staff
                                                         UserServices userService = new UserServicesImpl();
-                                                        userService.newUser(staff);
+                                                       
                                                         userService.newAccount(username.getText(), pass1, accessLevel);
+                                                        userService.newUser(staff);
 
                                                         this.dispose(); // Closes JFrame
                                                 }
