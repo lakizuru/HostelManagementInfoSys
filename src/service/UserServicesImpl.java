@@ -35,8 +35,8 @@ public class UserServicesImpl implements UserServices {
                 psLogin.setString(3, accountType);
                 //Execute prepared statements
                 psLogin.execute();
-                String msg = "Username: " + username + "\nPassword: " + password;
-                JOptionPane.showMessageDialog(null, "USER ACCOUNT CREATED!\n\n" + msg, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
+                
+                JOptionPane.showMessageDialog(null, "USER ACCOUNT CREATED!", "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
                 //Closing DB Connection
             }
         }

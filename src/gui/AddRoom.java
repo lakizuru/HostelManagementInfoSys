@@ -65,6 +65,11 @@ public class AddRoom extends javax.swing.JFrame {
 
         capasity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         capasity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Bed", "2 Beds", "3 Beds", "4 Beds" }));
+        capasity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                capasityActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Fee");
@@ -163,10 +168,11 @@ public class AddRoom extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
         String roomNo = block.getSelectedItem().toString() + number.getText();
+        int capasity = this.capasity.getSelectedIndex() + 1;
         
         //checking validity of room number
         if (Validate.isRoomNoValid(roomNo)){
-            Room room = new Room(roomNo, Float.parseFloat(fee.getText().toString()), Integer.parseInt(capasity.getSelectedItem().toString()));
+            Room room = new Room(roomNo, Float.parseFloat(fee.getText().toString()), capasity);
             
             RoomServices roomService = new RoomServicesImpl();
             roomService.AddRoom(room);
@@ -180,6 +186,10 @@ public class AddRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void capasityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capasityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_capasityActionPerformed
 
     /**
      * @param args the command line arguments

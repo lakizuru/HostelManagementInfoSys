@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Database;
 import model.Room;
@@ -78,7 +80,6 @@ public class RoomServicesImpl implements RoomServices {
             try {
 			Class.forName(Database.dbDriver);
 			Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
-			//Statement statement = connection.createStatement();
 			
 			//SQL INSERT statements for new Guests
                         String queryRoom = "INSERT INTO room (roomNumber, rental, capasity) VALUES (?,?,?)";
@@ -91,15 +92,55 @@ public class RoomServicesImpl implements RoomServices {
 
                         //Executing Prepared Statements
                         psRoom.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Room " + room.getRoomNumber() + " successfully added", "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
 			
 			//Closing DB Connection
 			connection.close();
 						
 		}
-		catch (Exception error) {
+		catch (ClassNotFoundException | SQLException error) {
 			JOptionPane.showMessageDialog(null, error, "Database Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}
         }
+        
+        public ArrayList<Room> getRooms (){
+            ArrayList <Room> roomsList = new ArrayList<>();
+
+            try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                //finds a room in the specified block which is not full
+                String queryRooms = "SELECT * FROM room";
+                
+                ResultSet rsRooms;
+                rsRooms = statement.executeQuery(queryRooms);
+
+                String[] row = new String [4];
+                
+                
+                while (rsRooms.next()){
+                    Room r = new Room(rsRooms.getString(1), rsRooms.getFloat(2), rsRooms.getInt(3), rsRooms.getInt(4));
+                    roomsList.add(r);
+
+                rsRooms.close();
+
+                //Closing DB Connection
+                connection.close();
+                }
+            }
+						
+            catch (ClassNotFoundException | SQLException error) {
+                    JOptionPane.showMessageDialog(null, error, "Database Error", JOptionPane.ERROR_MESSAGE);
+                    System.exit(-1);
+            }
+        return roomsList;
+        }
+
+        
+        
     
 }

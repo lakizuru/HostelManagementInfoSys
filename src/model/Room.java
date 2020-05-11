@@ -11,13 +11,14 @@ import java.sql.*;
 public class Room {
         private String roomNumber;
 	float rental;
-	int occupied = 0;
+	int occupied;
 	int capasity;
 
-    public Room(String roomNumber, float rental, int capasity) {
+    public Room(String roomNumber, float rental, int occupied, int capasity) {
         this.roomNumber = roomNumber;
         this.rental = rental;
         this.capasity = capasity;
+        this.occupied = occupied;
     }
 
     public String getRoomNumber() {

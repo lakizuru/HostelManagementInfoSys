@@ -10,7 +10,6 @@ import util.SessionData;
  * @author Semasinghe L.S. IT19051130
  */
 public class AdminDashboard extends javax.swing.JFrame {
-
     /**
      * Creates new form AdminDashboard
      */
@@ -27,6 +26,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        
     }
 
     /**
@@ -306,6 +307,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AdminDashboard().setVisible(true);
+                
+                
             }
         });
     }

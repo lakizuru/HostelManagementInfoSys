@@ -3,7 +3,14 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Room;
+import service.RoomServices;
+import service.RoomServicesImpl;
 import util.SessionData;
 /**
  *
@@ -29,6 +36,25 @@ public class ModerDashboard extends javax.swing.JFrame {
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+                
+        DefaultTableModel modelRooms = (DefaultTableModel) roomsTable.getModel();
+        modelRooms.setRowCount(0);
+        
+        RoomServices roomService = new RoomServicesImpl();
+        
+        String[] row = new String[4];
+        
+        for (Room room : roomService.getRooms()){
+            row[0] = room.getRoomNumber();
+            row[1] = String.valueOf(room.getCapasity());
+            row[2] = String.valueOf(room.getOccupied());
+            row[4] = String.valueOf(room.getRental());
+            
+            modelRooms.addRow(row);
+        }
+              
+        modelRooms.fireTableDataChanged();
+        
     }
 
     /**
@@ -47,6 +73,8 @@ public class ModerDashboard extends javax.swing.JFrame {
         addGuest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        roomsTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         loggedUser = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
@@ -110,15 +138,25 @@ public class ModerDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("REQUESTS", jPanel4);
 
+        roomsTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        roomsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(roomsTable);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("ROOMS", jPanel5);
@@ -252,6 +290,8 @@ public class ModerDashboard extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addGuest;
@@ -261,9 +301,11 @@ public class ModerDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
+    private javax.swing.JTable roomsTable;
     // End of variables declaration//GEN-END:variables
 }
