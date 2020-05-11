@@ -8,6 +8,9 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import util.Database;
 import util.DateTime;
 
@@ -106,19 +109,19 @@ public class Request {
         }
     }
     
-    public ArrayList<Request> requestSet(String type){
+    public static ArrayList<Request> requestSet(String type){
         
          ArrayList<Request> list = new ArrayList<>();
         try {
 
             //Openning DB connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/oop","lakisuru","Hannah<3");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/oop","root","root123");
             Statement statement = connection.createStatement();
 
 
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from request where reqType="+type+";");
+            ResultSet rs = st.executeQuery("select * from request where reqType='"+type+"';");
             
             Request request;
             
@@ -134,6 +137,45 @@ public class Request {
         return list;
         
     }
+     public static void DisplayRequestList(ArrayList<Request> List,JTable table){
+        
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        Object[] row = new Object[5];
+         
+        for(int i=0;i<List.size();i++){
+            row[0] = List.get(i).getReqTitle();
+            row[1] = List.get(i).getReqType();
+            row[2] = List.get(i).getReqDate();
+            row[3] = List.get(i).getDescription();
+            row[4] = List.get(i).getAcceptedBy();
+            model.addRow(row);
+        }
+        
+    
+    }
+    public static void DeleteSelectedRequest(JTable table){
+        
+        String C1;
+        int i = table.getSelectedRow();
+        
+        
+        TableModel model = table.getModel();
+        C1 = model.getValueAt(i, 0).toString();
+        
+        
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/oop","root","root123");
+            Statement statement = connection.createStatement();
+
+
+            Statement st = connection.createStatement();
+            String query = "delete from request where reqTitle='"+C1+"';";
+            st.executeUpdate(query);
+         connection.close();
+        }catch(Exception e){JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);}
+    }        
     
             
     
