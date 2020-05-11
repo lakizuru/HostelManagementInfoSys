@@ -25,13 +25,15 @@ public class GuestServicesImpl implements GuestServices {
                         userService.newUser(guest);
 			
 			//SQL INSERT statements for new Guests
-			String queryGuest = "INSERT INTO guest (username, availability, room) VALUES (?,?,?)";
+			String queryGuest = "INSERT INTO guest (username, availability, room, emergName, emergPhone) VALUES (?,?,?,?,?)";
 			
 			//Prepared Statement Queries
 			PreparedStatement psGuest = connection.prepareStatement(queryGuest);
 			psGuest.setString(1, guest.getUsername());
 			psGuest.setBoolean(2, guest.isAvailability());
 			psGuest.setString(3, guest.getRoom());
+                        psGuest.setString(4, guest.getEmName());
+                        psGuest.setString(5, guest.getEmPhone());
 			
 			//Executing Prepared Statements
 			psGuest.execute();

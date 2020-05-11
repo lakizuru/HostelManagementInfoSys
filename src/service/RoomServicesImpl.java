@@ -57,7 +57,7 @@ public class RoomServicesImpl implements RoomServices {
 			Statement statement = connection.createStatement();
 			
 			//finds a room in the specified block which is not full
-			String queryVacantRooms = "SELECT roomNumber FROM room WHERE roomNumber = '" + block + "???' AND occupied < capasity";
+			String queryVacantRooms = "SELECT roomNumber FROM room WHERE roomNumber LIKE '" + block + "___' AND occupied < capasity";
 			
 			ResultSet rsVacantRooms = statement.executeQuery(queryVacantRooms);
 			
@@ -116,21 +116,23 @@ public class RoomServicesImpl implements RoomServices {
                 //finds a room in the specified block which is not full
                 String queryRooms = "SELECT * FROM room";
                 
-                ResultSet rsRooms;
-                rsRooms = statement.executeQuery(queryRooms);
+                ResultSet rsRooms = statement.executeQuery(queryRooms);
 
                 String[] row = new String [4];
                 
-                
+                Room r = new Room();
                 while (rsRooms.next()){
-                    Room r = new Room(rsRooms.getString(1), rsRooms.getFloat(2), rsRooms.getInt(3), rsRooms.getInt(4));
+                    r.setRoomNumber(rsRooms.getString(1));
+                    r.setRental(rsRooms.getFloat(2));
+                    r.setCapasity(rsRooms.getInt(4));
+         
                     roomsList.add(r);
+                }
 
                 rsRooms.close();
 
                 //Closing DB Connection
                 connection.close();
-                }
             }
 						
             catch (ClassNotFoundException | SQLException error) {

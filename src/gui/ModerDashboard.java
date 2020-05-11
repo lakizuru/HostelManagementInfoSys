@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Room;
 import service.RoomServices;
@@ -28,7 +30,7 @@ public class ModerDashboard extends javax.swing.JFrame {
            
         initComponents();
         
-        this.setTitle("Moderator's Dashboard");
+        //this.setTitle("Moderator's Dashboard");
         
         //Setting username to display
         loggedUser.setText("Welcome, " + SessionData.getLoggedUser() + "!");
@@ -36,24 +38,11 @@ public class ModerDashboard extends javax.swing.JFrame {
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-                
-        DefaultTableModel modelRooms = (DefaultTableModel) roomsTable.getModel();
-        modelRooms.setRowCount(0);
         
         RoomServices roomService = new RoomServicesImpl();
         
-        String[] row = new String[4];
-        
-        for (Room room : roomService.getRooms()){
-            row[0] = room.getRoomNumber();
-            row[1] = String.valueOf(room.getCapasity());
-            row[2] = String.valueOf(room.getOccupied());
-            row[4] = String.valueOf(room.getRental());
-            
-            modelRooms.addRow(row);
-        }
-              
-        modelRooms.fireTableDataChanged();
+        displayRooms(roomService.getRooms(), roomsTable);
+                
         
     }
 
@@ -291,6 +280,21 @@ public class ModerDashboard extends javax.swing.JFrame {
         });
     }
     
+    public static void displayRooms(ArrayList<Room> rooms , JTable roomsTable){
+        DefaultTableModel modelRooms = (DefaultTableModel) roomsTable.getModel();
+        //modelRooms.setRowCount(0);
+        String[] row = new String[4];
+        
+        for (int i = 0; i < rooms.size(); i++){
+            row[0] = rooms.get(i).getRoomNumber();
+            row[1] = String.valueOf(rooms.get(i).getCapasity());
+            row[2] = String.valueOf(rooms.get(i).getOccupied());
+            row[3] = String.valueOf(rooms.get(i).getRental());
+            
+            modelRooms.addRow(row);
+            
+        }
+    }   
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

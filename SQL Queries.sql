@@ -2,7 +2,7 @@
 # 
 
 CREATE TABLE `login` (
-  `username` varchar(8) NOT NULL,
+  `username` varchar(12) NOT NULL,
   `password` varchar(16) NOT NULL,
   `accountType` varchar(5) NOT NULL DEFAULT 'GUEST',
   `lastLogin` datetime DEFAULT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `user` (
-  `username` varchar(8) NOT NULL,
+  `username` varchar(12) NOT NULL,
   `name` varchar(20) NOT NULL,
   `nic` varchar(12) NOT NULL,
   `phone` varchar(10) DEFAULT NULL,
@@ -22,6 +22,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`username`),
   CONSTRAINT `FKuser` FOREIGN KEY (`username`) REFERENCES `login` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
 CREATE TABLE `room` (
   `roomNumber` varchar(4) NOT NULL,
   `rental` float NOT NULL,
@@ -31,18 +32,17 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `guest` (
-  `username` varchar(8) NOT NULL,
+  `username` varchar(12) NOT NULL,
   `availability` tinyint(4) NOT NULL DEFAULT '1',
   `room` varchar(4) NOT NULL,
   `emergName` varchar(20) DEFAULT NULL,
-  `emergRelationship` varchar(20) DEFAULT NULL,
   `emergPhone` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`username`),
   CONSTRAINT `FKguest` FOREIGN KEY (`username`) REFERENCES `login` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `staff` (
-  `username` varchar(8) NOT NULL,
+  `username` varchar(12) NOT NULL,
   `salary` int(11) NOT NULL,
   `bank` varchar(20) DEFAULT NULL,
   `accNumber` varchar(16) DEFAULT NULL,

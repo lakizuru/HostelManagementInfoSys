@@ -1,9 +1,5 @@
 package model;
 
-import util.Database;
-import javax.swing.JOptionPane;
-import java.sql.*;
-
 /**
  *
  * @author Semasinghe L.S. IT19051130
@@ -14,11 +10,13 @@ public class Room {
 	int occupied;
 	int capasity;
 
-    public Room(String roomNumber, float rental, int occupied, int capasity) {
+    public Room() {
+    }
+
+    public Room(String roomNumber, float rental, int capasity) {
         this.roomNumber = roomNumber;
         this.rental = rental;
         this.capasity = capasity;
-        this.occupied = occupied;
     }
 
     public String getRoomNumber() {

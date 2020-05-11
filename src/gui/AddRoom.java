@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import util.Validate;
 import model.Room;
 import service.RoomServices;
@@ -168,18 +169,25 @@ public class AddRoom extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
         String roomNo = block.getSelectedItem().toString() + number.getText();
-        int capasity = this.capasity.getSelectedIndex() + 1;
         
         //checking validity of room number
         if (Validate.isRoomNoValid(roomNo)){
-            Room room = new Room(roomNo, Float.parseFloat(fee.getText().toString()), capasity);
+            //checking fee is valid
+            if (Validate.isMoneyValid(fee.getText())){
+                Room room = new Room(roomNo, Float.parseFloat(fee.getText()), (capasity.getSelectedIndex() + 1));
             
-            RoomServices roomService = new RoomServicesImpl();
-            roomService.AddRoom(room);
+                RoomServices roomService = new RoomServicesImpl();
+                roomService.AddRoom(room);
+                
+                this.dispose(); //closing jframe
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Rental fee you have entered is invalid. Please check again", "Invalid Rental Fee", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
-        
-
+        else{
+            JOptionPane.showMessageDialog(null, "Room Number you have entered is invalid. Please check again", "Invalid Room Number", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
