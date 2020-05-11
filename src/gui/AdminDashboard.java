@@ -21,7 +21,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Setting username to display
-        loggedUser.setText("Welcome, " + SessionData.getLoggedUser() + "!");
+        loggedUser.setText("Welcome, " + loggedUser.getName() + "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -48,6 +48,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        newNotice = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         addAdminModer1 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
@@ -139,15 +140,29 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("ROOMS", jPanel5);
 
+        newNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        newNotice.setText("NEW NOTICE");
+        newNotice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newNoticeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 796, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(633, Short.MAX_VALUE)
+                .addComponent(newNotice)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(343, Short.MAX_VALUE)
+                .addComponent(newNotice)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("NOTICES", jPanel6);
@@ -276,6 +291,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         setState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeActionPerformed
 
+    private void newNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNoticeActionPerformed
+        // TODO add your handling code here:
+        new AddNotice().setVisible(true);
+    }//GEN-LAST:event_newNoticeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +347,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
+    private javax.swing.JButton newNotice;
     private javax.swing.JButton newRoomButton;
     // End of variables declaration//GEN-END:variables
 }

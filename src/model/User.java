@@ -15,6 +15,10 @@ public class User {
     private String phone;
     private String address;
     private boolean gender; // male - 1, female - 0
+    
+    public User(){
+        
+    }
 
     public User(String username, String name, String nic, String phone, String address, boolean gender) {
         super();

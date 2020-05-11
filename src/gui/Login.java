@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import model.User;
 /**
  *
  * @author Semasinghe L.S. IT19051130
@@ -137,8 +138,11 @@ public class Login extends javax.swing.JFrame {
                         int loginAttempts = rsUsername.getInt("attempts");
 
                         if (passw.equals(String.valueOf(password.getPassword()))) {
+                            
+                                User loggedUser = new User();
+                                loggedUser.setUsername(username.getText());
 
-                                SessionData.setLoggedUser(username.getText());
+                                //SessionData.setLoggedUser(username.getText());
 
                                 //Retrieving user account type						
                                 String lastLogin = rsUsername.getString("lastLogin");
@@ -150,7 +154,7 @@ public class Login extends javax.swing.JFrame {
                                 //Prepared Statement Queries
                                 PreparedStatement psLastLogin = connection.prepareStatement(queryLastLogin);
                                 psLastLogin.setString(1, DateTime.sqlTime());
-                                psLastLogin.setString(2, SessionData.getLoggedUser());
+                                psLastLogin.setString(2, username.getText());
 
                                 //Executing Prepared Statements
                                 psLastLogin.execute();

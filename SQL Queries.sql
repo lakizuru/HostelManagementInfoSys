@@ -51,3 +51,9 @@ CREATE TABLE `staff` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   CONSTRAINT `FKstaff` FOREIGN KEY (`username`) REFERENCES `login` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `oop`.`notice` (
+  `dateTime` DATETIME NOT NULL,
+  `message` VARCHAR(240) NOT NULL,
+  `recipients` CHAR(9) NOT NULL DEFAULT '000000000',
+  PRIMARY KEY (`dateTime`));
