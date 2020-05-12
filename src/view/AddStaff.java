@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -270,9 +270,9 @@ public class AddStaff extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(accNo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel11)))
+                                .addComponent(accNo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel11))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -373,7 +373,8 @@ public class AddStaff extends javax.swing.JFrame {
                                                                 }
 
                                                                 //Creating staff object
-                                                                Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), dept.toString() );
+                                                                Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, 
+                                                                        Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), dept.getSelectedItem().toString());
 
                                                                 //creating a DB entry for the new staff
                                                                 

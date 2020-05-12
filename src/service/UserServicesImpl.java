@@ -15,6 +15,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.User;
 import util.Database;
+import util.DateTime;
 
 
 public class UserServicesImpl implements UserServices {
@@ -58,7 +59,7 @@ public class UserServicesImpl implements UserServices {
             Statement statement = connection.createStatement();
 
             //SQL INSERT statements for new User
-            String queryUser = "INSERT INTO user (username, name, nic, phone, address, gender) VALUES (?,?,?,?,?,?)";
+            String queryUser = "INSERT INTO user (username, name, nic, phone, address, gender, regDate) VALUES (?,?,?,?,?,?,?)";
 
             //Prepared Statement Queries
             PreparedStatement psUser = connection.prepareStatement(queryUser);
@@ -68,6 +69,7 @@ public class UserServicesImpl implements UserServices {
             psUser.setString(4, user.getPhone());
             psUser.setString(5, user.getAddress());
             psUser.setBoolean(6, user.isGender());
+            psUser.setString(7, DateTime.sqlTime());
 
             //Executing Prepared Statements
             psUser.execute();
@@ -79,6 +81,7 @@ public class UserServicesImpl implements UserServices {
 
         catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
+                
                 System.exit(-1);
         }
     }

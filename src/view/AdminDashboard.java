@@ -1,9 +1,14 @@
-package gui;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.table.DefaultTableModel;
+import model.Staff;
+import service.StaffServices;
+import service.StaffServicesImpl;
 import util.SessionData;
 /**
  *
@@ -27,7 +32,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
-        
+        //Load staff data
+        StaffServices staffService = new StaffServicesImpl();
+        ArrayList<Staff> staffList = staffService.getStaff();
+        generateStaffTable(staffList);
     }
 
     /**
@@ -45,6 +53,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        staffTable = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -68,7 +78,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("HOME", jPanel2);
@@ -81,7 +91,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("GUESTS", jPanel3);
@@ -94,19 +104,37 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        staffTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        staffTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(staffTable);
+        staffTable.setColumnModel(staffTable.getColumnModel());
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(607, Short.MAX_VALUE)
-                .addComponent(addStaff)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addStaff))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(343, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addStaff)
                 .addContainerGap())
         );
@@ -133,7 +161,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(343, Short.MAX_VALUE)
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(newRoomButton)
                 .addContainerGap())
         );
@@ -160,7 +188,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(343, Short.MAX_VALUE)
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(newNotice)
                 .addContainerGap())
         );
@@ -189,7 +217,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(343, Short.MAX_VALUE)
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(addAdminModer1)
                 .addContainerGap())
         );
@@ -331,7 +359,23 @@ public class AdminDashboard extends javax.swing.JFrame {
                 
             }
         });
+        
+        
     }
+    
+    public void generateStaffTable(ArrayList<Staff> staffList){
+        DefaultTableModel modelStaff = (DefaultTableModel)staffTable.getModel();
+        Object[] row = new Object[4];
+
+        for(int i=0; i < staffList.size(); i++){
+            row[0] = staffList.get(i).getUsername();
+            row[1] = staffList.get(i).getName();
+            row[2] = staffList.get(i).getPhone();
+            row[3] = staffList.get(i).getDept();
+
+            modelStaff.addRow(row);
+        }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAdminModer1;
@@ -343,11 +387,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
     private javax.swing.JButton newNotice;
     private javax.swing.JButton newRoomButton;
+    private javax.swing.JTable staffTable;
     // End of variables declaration//GEN-END:variables
 }
