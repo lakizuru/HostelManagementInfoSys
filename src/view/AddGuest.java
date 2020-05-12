@@ -398,8 +398,8 @@ public class AddGuest extends javax.swing.JFrame {
                                                         
                                                         GuestServices guestService = new GuestServicesImpl();
                                                         guestService.newGuest(guest);
-
                                                         
+                                                        this.dispose();
                                                 }
                                                 else {
                                                         JOptionPane.showMessageDialog(null, "Emergency Contact Details you have entered are invalid!\nPlease enter valid details", "Invalid Emergency Contact Info", JOptionPane.ERROR_MESSAGE);
