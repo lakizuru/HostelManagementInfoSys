@@ -50,7 +50,9 @@ public class StaffServicesImpl implements StaffServices {
                     System.exit(-1);
             }
     }
-    
+}
+
+/*    
     public ArrayList<Staff> getStaff(){
                 ArrayList<Staff> staffList = new ArrayList<>();
         try {
@@ -71,5 +73,4 @@ public class StaffServicesImpl implements StaffServices {
             System.exit(-1);
         }
         return staffList;
-    }
-}
+    } */

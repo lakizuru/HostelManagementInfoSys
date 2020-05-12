@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import model.Guest;
 import util.Database;
 import java.sql.*;
-import model.User;
 
 
 public class GuestServicesImpl implements GuestServices {

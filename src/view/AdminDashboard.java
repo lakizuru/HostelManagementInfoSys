@@ -32,10 +32,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
-        //Load staff data
-        StaffServices staffService = new StaffServicesImpl();
-        ArrayList<Staff> staffList = staffService.getStaff();
-        generateStaffTable(staffList);
     }
 
     /**
@@ -51,10 +47,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        guestTable = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         staffTable = new javax.swing.JTable();
+        viewStaff = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -83,15 +82,35 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HOME", jPanel2);
 
+        guestTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        guestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(guestTable);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 796, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("GUESTS", jPanel3);
@@ -110,11 +129,29 @@ public class AdminDashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Username", "Name", "Phone", "Department"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        staffTable.setColumnSelectionAllowed(true);
+        staffTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(staffTable);
-        staffTable.setColumnModel(staffTable.getColumnModel());
+        staffTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        viewStaff.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        viewStaff.setText("VIEW EMPLOYEE");
+        viewStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStaffActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -125,6 +162,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(viewStaff)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addStaff))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
                 .addContainerGap())
@@ -135,7 +174,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addStaff)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addStaff)
+                    .addComponent(viewStaff))
                 .addContainerGap())
         );
 
@@ -324,6 +365,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         new AddNotice().setVisible(true);
     }//GEN-LAST:event_newNoticeActionPerformed
 
+    private void viewStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewStaffActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,23 +408,24 @@ public class AdminDashboard extends javax.swing.JFrame {
         
     }
     
-    public void generateStaffTable(ArrayList<Staff> staffList){
-        DefaultTableModel modelStaff = (DefaultTableModel)staffTable.getModel();
-        Object[] row = new Object[4];
-
-        for(int i=0; i < staffList.size(); i++){
-            row[0] = staffList.get(i).getUsername();
-            row[1] = staffList.get(i).getName();
-            row[2] = staffList.get(i).getPhone();
-            row[3] = staffList.get(i).getDept();
-
-            modelStaff.addRow(row);
-        }
-        }
+    /*    public void generateStaffTable(ArrayList<Staff> staffList){
+    DefaultTableModel modelStaff = (DefaultTableModel)staffTable.getModel();
+    Object[] row = new Object[4];
+    
+    for(int i=0; i < staffList.size(); i++){
+    row[0] = staffList.get(i).getUsername();
+    row[1] = staffList.get(i).getName();
+    row[2] = staffList.get(i).getPhone();
+    row[3] = staffList.get(i).getDept();
+    
+    modelStaff.addRow(row);
+    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAdminModer1;
     private javax.swing.JButton addStaff;
+    private javax.swing.JTable guestTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -388,6 +434,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
@@ -395,5 +442,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton newNotice;
     private javax.swing.JButton newRoomButton;
     private javax.swing.JTable staffTable;
+    private javax.swing.JButton viewStaff;
     // End of variables declaration//GEN-END:variables
 }
