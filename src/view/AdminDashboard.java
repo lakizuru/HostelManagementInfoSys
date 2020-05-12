@@ -3,13 +3,9 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.table.DefaultTableModel;
-import model.Staff;
-import service.StaffServices;
-import service.StaffServicesImpl;
 import util.SessionData;
+import util.TableFunctions;
 /**
  *
  * @author Semasinghe L.S. IT19051130
@@ -32,6 +28,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
+        //Generating tables
+        TableFunctions.updateTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
+        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
     }
 
     /**
@@ -49,17 +49,22 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
+        updateGuestTable = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         staffTable = new javax.swing.JTable();
         viewStaff = new javax.swing.JButton();
+        addAdminModer1 = new javax.swing.JButton();
+        updateStaffTable = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        roomTable = new javax.swing.JTable();
+        viewRoom = new javax.swing.JButton();
+        updateRoomsTable = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         newNotice = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        addAdminModer1 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         loggedUser = new javax.swing.JLabel();
         minimize = new javax.swing.JButton();
@@ -85,16 +90,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         guestTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         guestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Username", "Name", "Phone", "Room#", "Availability"
             }
         ));
         jScrollPane2.setViewportView(guestTable);
+
+        updateGuestTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        updateGuestTable.setText("UPDATE TABLE");
+        updateGuestTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateGuestTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -102,15 +112,21 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(updateGuestTable)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(updateGuestTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("GUESTS", jPanel3);
@@ -146,10 +162,26 @@ public class AdminDashboard extends javax.swing.JFrame {
         staffTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         viewStaff.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        viewStaff.setText("VIEW EMPLOYEE");
+        viewStaff.setText("VIEW STAFF");
         viewStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewStaffActionPerformed(evt);
+            }
+        });
+
+        addAdminModer1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        addAdminModer1.setText("NEW SYSTEM USER");
+        addAdminModer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAdminModer1ActionPerformed(evt);
+            }
+        });
+
+        updateStaffTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        updateStaffTable.setText("UPDATE TABLE");
+        updateStaffTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateStaffTableActionPerformed(evt);
             }
         });
 
@@ -160,23 +192,28 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(updateStaffTable)
+                        .addGap(26, 26, 26)
                         .addComponent(viewStaff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(addAdminModer1)
+                        .addGap(18, 18, 18)
                         .addComponent(addStaff))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStaff)
-                    .addComponent(viewStaff))
+                    .addComponent(viewStaff)
+                    .addComponent(addAdminModer1)
+                    .addComponent(updateStaffTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -190,20 +227,60 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        roomTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        roomTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Room#", "Rental Fee", "Capasity", "Occupied"
+            }
+        ));
+        jScrollPane3.setViewportView(roomTable);
+
+        viewRoom.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        viewRoom.setText("VIEW ROOM");
+        viewRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewRoomActionPerformed(evt);
+            }
+        });
+
+        updateRoomsTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        updateRoomsTable.setText("UPDATE TABLE");
+        updateRoomsTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateRoomsTableActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(647, Short.MAX_VALUE)
-                .addComponent(newRoomButton)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(updateRoomsTable)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+                        .addComponent(viewRoom)
+                        .addGap(141, 141, 141)
+                        .addComponent(newRoomButton)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(407, Short.MAX_VALUE)
-                .addComponent(newRoomButton)
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(newRoomButton)
+                        .addComponent(viewRoom))
+                    .addComponent(updateRoomsTable))
                 .addContainerGap())
         );
 
@@ -235,35 +312,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("NOTICES", jPanel6);
-
-        jPanel7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-
-        addAdminModer1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        addAdminModer1.setText("NEW SYSTEM USER");
-        addAdminModer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAdminModer1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(579, Short.MAX_VALUE)
-                .addComponent(addAdminModer1)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(407, Short.MAX_VALUE)
-                .addComponent(addAdminModer1)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("SYSTEM", jPanel7);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -340,21 +388,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logoutBtnActionPerformed
 
-    private void addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStaffActionPerformed
-        // TODO add your handling code here:
-        new AddStaff().setVisible(true);
-    }//GEN-LAST:event_addStaffActionPerformed
-
-    private void addAdminModer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAdminModer1ActionPerformed
-        // TODO add your handling code here:
-        new AddAdminModer().setVisible(true);
-    }//GEN-LAST:event_addAdminModer1ActionPerformed
-
-    private void newRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoomButtonActionPerformed
-        // TODO add your handling code here:
-        new AddRoom().setVisible(true);
-    }//GEN-LAST:event_newRoomButtonActionPerformed
-
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeActionPerformed
         // TODO add your handling code here:
         setState(this.ICONIFIED);
@@ -365,9 +398,43 @@ public class AdminDashboard extends javax.swing.JFrame {
         new AddNotice().setVisible(true);
     }//GEN-LAST:event_newNoticeActionPerformed
 
+    private void updateRoomsTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRoomsTableActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
+    }//GEN-LAST:event_updateRoomsTableActionPerformed
+
+    private void viewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRoomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewRoomActionPerformed
+
+    private void newRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoomButtonActionPerformed
+        // TODO add your handling code here:
+        new AddRoom().setVisible(true);
+    }//GEN-LAST:event_newRoomButtonActionPerformed
+
+    private void updateStaffTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateStaffTableActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.updateTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
+    }//GEN-LAST:event_updateStaffTableActionPerformed
+
+    private void addAdminModer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAdminModer1ActionPerformed
+        // TODO add your handling code here:
+        new AddAdminModer().setVisible(true);
+    }//GEN-LAST:event_addAdminModer1ActionPerformed
+
     private void viewStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStaffActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewStaffActionPerformed
+
+    private void addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStaffActionPerformed
+        // TODO add your handling code here:
+        new AddStaff().setVisible(true);
+    }//GEN-LAST:event_addStaffActionPerformed
+
+    private void updateGuestTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateGuestTableActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+    }//GEN-LAST:event_updateGuestTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -432,16 +499,21 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
     private javax.swing.JButton newNotice;
     private javax.swing.JButton newRoomButton;
+    private javax.swing.JTable roomTable;
     private javax.swing.JTable staffTable;
+    private javax.swing.JButton updateGuestTable;
+    private javax.swing.JButton updateRoomsTable;
+    private javax.swing.JButton updateStaffTable;
+    private javax.swing.JButton viewRoom;
     private javax.swing.JButton viewStaff;
     // End of variables declaration//GEN-END:variables
 }
