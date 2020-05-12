@@ -90,18 +90,19 @@ public class TableFunctions {
         
     }
     
+    /*
     public static void updateTable(JTable table,String query){
         
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         
         //Remove existing records
-        for (int i = 0; i < table.getRowCount(); i++){
-            model.removeRow(i);
+        for (int i = table.getRowCount(); i > 0; i--){
+            model.removeRow(i-1);
         }
         
         //Regenerate table
         RetrieveToTable(table, query);
         
     }
-    
+    */
 }
