@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import model.LoggedUser;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -11,6 +12,7 @@ import util.TableFunctions;
  * @author Semasinghe L.S. IT19051130
  */
 public class AdminDashboard extends javax.swing.JFrame {
+
     /**
      * Creates new form AdminDashboard
      */
@@ -29,9 +31,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
         //Generating tables
-        TableFunctions.updateTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
-        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
-        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
+        TableFunctions.RetrieveToTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
     }
 
     /**
@@ -400,7 +402,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void updateRoomsTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRoomsTableActionPerformed
         // TODO add your handling code here:
-        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
+        TableFunctions.ClearTable(roomTable);
+        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
     }//GEN-LAST:event_updateRoomsTableActionPerformed
 
     private void viewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRoomActionPerformed
@@ -414,7 +417,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void updateStaffTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateStaffTableActionPerformed
         // TODO add your handling code here:
-        TableFunctions.updateTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
+        TableFunctions.ClearTable(staffTable);
+        TableFunctions.RetrieveToTable(staffTable, "SELECT u.username, u.name, u.phone, s.department FROM user as u, staff as s WHERE u.username = s.username");
     }//GEN-LAST:event_updateStaffTableActionPerformed
 
     private void addAdminModer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAdminModer1ActionPerformed
@@ -433,7 +437,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void updateGuestTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateGuestTableActionPerformed
         // TODO add your handling code here:
-        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
     }//GEN-LAST:event_updateGuestTableActionPerformed
 
     /**

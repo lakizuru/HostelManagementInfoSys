@@ -7,7 +7,10 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import model.LoggedUser;
 import model.User;
+import service.LoggedUserServices;
+import service.LoggedUserServicesImpl;
 /**
  *
  * @author Semasinghe L.S. IT19051130
@@ -123,85 +126,50 @@ public class Login extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        try {
-                Class.forName(Database.dbDriver);
-                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
-                Statement statement = connection.createStatement();
+        LoggedUserServices user = new LoggedUserServicesImpl();
+        LoggedUser loggedUser = user.getLoggedUserInfo(username.getText());
 
-                String queryLoginDetails = "SELECT password, accountType, lastLogin, attempts FROM login WHERE username = '" + username.getText() + "'";
+        if (loggedUser.isPass()) {
 
-                ResultSet rsUsername = statement.executeQuery(queryLoginDetails);
+                if (loggedUser.getPassword().equals(String.valueOf(password.getPassword()))) {
+                        SessionData.setLoggedUser(loggedUser.getUsername());
 
-                if (rsUsername.next()) {
-                        //resultSet.next();
-                        String passw = rsUsername.getString("password");
-                        int loginAttempts = rsUsername.getInt("attempts");
+                        JOptionPane.showMessageDialog(this, loggedUser.getAttempts() + 
+                                " unsuccessful login attempt(s) since last successful login at " 
+                                + loggedUser.getLastLogin(), "Login Successful!", JOptionPane.INFORMATION_MESSAGE);
 
-                        if (passw.equals(String.valueOf(password.getPassword()))) {
-                            
-                                User loggedUser = new User();
-                                loggedUser.setUsername(username.getText());
+                        switch (loggedUser.getAccountType()) {
+                        case "ADMIN": {
+                                AdminDashboard frameAdmin = new AdminDashboard();
+                                frameAdmin.setVisible(true);
+                                this.dispose();
 
-                                //SessionData.setLoggedUser(username.getText());
-
-                                //Retrieving user account type						
-                                String lastLogin = rsUsername.getString("lastLogin");
-                                JOptionPane.showMessageDialog(this, loginAttempts + " unsuccessful login attempt(s) since last successful login at " + lastLogin, "Login Successful!", JOptionPane.INFORMATION_MESSAGE);
-
-                                //Update last login
-                                String queryLastLogin = "UPDATE `oop`.`login` SET `lastLogin` = ?, `attempts` = 0 WHERE `username` = ?";
-
-                                //Prepared Statement Queries
-                                PreparedStatement psLastLogin = connection.prepareStatement(queryLastLogin);
-                                psLastLogin.setString(1, DateTime.sqlTime());
-                                psLastLogin.setString(2, username.getText());
-
-                                //Executing Prepared Statements
-                                psLastLogin.execute();
-
-                                //Retrieving user account type					
-                                String accType = rsUsername.getString("accountType");
-
-                                switch (accType) {
-                                case "ADMIN": {
-                                        AdminDashboard frameAdmin = new AdminDashboard();
-                                        frameAdmin.setVisible(true);
-                                        this.dispose();
-
-                                        break;
-                                }
-                                case "MODER": {
-                                        ModerDashboard frameModer = new ModerDashboard();
-                                        frameModer.setVisible(true);
-                                        this.dispose();
-
-                                        break;
-                                }
-                                }
+                                break;
                         }
+                        case "MODER": {
+                                ModerDashboard frameModer = new ModerDashboard();
+                                frameModer.setVisible(true);
+                                this.dispose();
 
-                        else {
-                                String msg = "Incorrect password!";
-                                loginAttempts++;
-                                String queryAttempts = "UPDATE `oop`.`login` SET `attempts` = " + loginAttempts + " WHERE `username` = '" + username.getText() + "'";
-                                statement.execute(queryAttempts);
-                                JOptionPane.showMessageDialog(null, msg, "Access Denied!" , JOptionPane.ERROR_MESSAGE);
+                                break;
+                        }
                         }
                 }
+
                 else {
-                        String msg = "No user account found!";
+                        String msg = "Incorrect password!";
+                        
+                        user.failedLogin(loggedUser.getUsername(), loggedUser.getAttempts()+1);
                         
                         JOptionPane.showMessageDialog(null, msg, "Access Denied!" , JOptionPane.ERROR_MESSAGE);
                 }
-
-                //Closing DB Connection
-                connection.close();
-
         }
-        catch (Exception dbError) {
-                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(-1);
+        else {
+                String msg = "No user account found!";
+
+                JOptionPane.showMessageDialog(null, msg, "Access Denied!" , JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed

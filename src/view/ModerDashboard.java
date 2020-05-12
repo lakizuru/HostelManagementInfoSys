@@ -3,11 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Room;
@@ -32,8 +29,8 @@ public class ModerDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Generating tables
-        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
-        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g"
+        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g"
                 + " WHERE u.username = g.username");
         
         //Setting username to display
@@ -311,12 +308,14 @@ public class ModerDashboard extends javax.swing.JFrame {
 
     private void updateRoomsTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRoomsTableActionPerformed
         // TODO add your handling code here:
-        TableFunctions.updateTable(roomTable, "SELECT * FROM room");
+        TableFunctions.ClearTable(roomTable);
+        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
     }//GEN-LAST:event_updateRoomsTableActionPerformed
 
     private void updateGuestTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateGuestTableActionPerformed
         // TODO add your handling code here:
-        TableFunctions.updateTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
     }//GEN-LAST:event_updateGuestTableActionPerformed
 
     /**
