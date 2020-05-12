@@ -88,7 +88,15 @@ public class TableFunctions {
         }catch(Exception e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
                 }
         
-    }
+        }
+    
+    
+    public static void ClearTable(JTable table){
+            
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+        
+        }
     
     /*
     public static void updateTable(JTable table,String query){
