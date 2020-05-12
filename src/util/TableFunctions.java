@@ -88,6 +88,26 @@ public class TableFunctions {
         }catch(Exception e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
                 }
         
+        }
+    
+    public static void updateTable(JTable table,String query){
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        //Remove existing records
+        for (int i = 0; i < table.getRowCount(); i++){
+            model.removeRow(i);
+        }
+        
+        //Regenerate table
+        RetrieveToTable(table, query);
+        
     }
+    public static void ClearTable(JTable table){
+            
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+        
+        }
     
 }
