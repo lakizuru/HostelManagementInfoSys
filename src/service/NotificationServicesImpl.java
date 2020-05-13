@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import model.Notification;
 import util.Database;
 import util.DateTime;
+import util.SessionData;
 
 /**
  *
@@ -23,7 +24,7 @@ public class NotificationServicesImpl implements NotificationServices{
 
     @Override
     public void newNotification(Notification notif) {
-       /* try {
+       try {
 
             //Openning DB connection
             Class.forName(Database.dbDriver);
@@ -32,16 +33,17 @@ public class NotificationServicesImpl implements NotificationServices{
 
             
 
-            //SQL INSERT statements for new Requests
-            String queryNotif = "INSERT INTO notification (reqTitle, reqType, date, description, acceptedBy) VALUES (?,?,?,?,?)";
+            //SQL INSERT statements for new Notifications
+            String queryNotif = "INSERT INTO notifications (notifUsername, notifTitle, date, description,senderUsername) VALUES (?,?,?,?,?)";
 
             //Prepared Statement Queries
             PreparedStatement psRequest = connection.prepareStatement(queryNotif);
-            psRequest.setString(1, request.getReqTitle());
-            psRequest.setString(2, request.getReqType());
+            psRequest.setString(1, notif.getNotifUsername());
+            psRequest.setString(2, notif.getNotifTitle());
             psRequest.setString(3, DateTime.sqlTime());
-            psRequest.setString(4, request.getDescription());
-            psRequest.setString(5, request.getAcceptedBy());
+            psRequest.setString(4, notif.getNotifDescription());
+            psRequest.setString(5, SessionData.getLoggedUser());
+            
 
             //Executing Prepared Statements
             psRequest.execute();
@@ -50,13 +52,15 @@ public class NotificationServicesImpl implements NotificationServices{
             connection.close();
         }
         catch (SQLIntegrityConstraintViolationException e) {
-                JOptionPane.showMessageDialog(null, "You have entered existing request type! \n" + e, "Invalid Inputs!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You have entered existing notification title! \n" + e, "Invalid Inputs!", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
         }
         catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
-        }*/
+        }
+       
+       
     }
     
 }
