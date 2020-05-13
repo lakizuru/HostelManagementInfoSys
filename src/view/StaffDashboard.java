@@ -36,7 +36,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
           RequestServices staffname = new RequestServicesImpl();
-          TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE acceptedBy is null and reqType='"+staffname.takeDepartment()+"'");
+          TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+staffname.takeDepartment()+"')");
     }
 
     /**
@@ -347,7 +347,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         TableFunctions.ClearTable(requestTable);
         RequestServices staffname = new RequestServicesImpl();
-        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE acceptedBy is null and reqType='"+staffname.takeDepartment()+"'");
+        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+staffname.takeDepartment()+"')");
     }//GEN-LAST:event_refreshReqActionPerformed
 
     private void addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStaffActionPerformed
