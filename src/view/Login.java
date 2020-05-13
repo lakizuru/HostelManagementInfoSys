@@ -141,13 +141,15 @@ public class Login extends javax.swing.JFrame {
 
                         switch (loggedUser.getAccountType()) {
                         case "ADMIN": {
-                                AdminDashboard frameAdmin = new AdminDashboard();
+                                SessionData.setLoggedAccountType("ADMIN");
+                                AdminDashboard frameAdmin = new AdminDashboard(loggedUser);
                                 frameAdmin.setVisible(true);
                                 this.dispose();
 
                                 break;
                         }
                         case "MODER": {
+                                SessionData.setLoggedAccountType("MODER");
                                 ModerDashboard frameModer = new ModerDashboard();
                                 frameModer.setVisible(true);
                                 this.dispose();
@@ -155,11 +157,17 @@ public class Login extends javax.swing.JFrame {
                                 break;
                         }
                         case "STAFF": {
+                                SessionData.setLoggedAccountType("STAFF");
                                 StaffDashboard frameStaff = new StaffDashboard();
                                 frameStaff.setVisible(true);
                                 this.dispose();
 
                                 break;
+                        }
+                        case "GUEST": {
+                            SessionData.setLoggedAccountType("GUEST");
+                            this.dispose();
+                            
                         }
                         }
                 }

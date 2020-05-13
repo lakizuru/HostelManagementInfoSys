@@ -59,12 +59,9 @@ public class Validate {
 		if (password1.equals(password2)) {
 			//checks whether password has decent amount of characters
 			if (password1.length() >= 8 && password1.length() <= 16) {
-				//checks whether password has uppercase, lowercase letters, numbers and special characters
-				if (password1.matches("[A-Za-z0-9!@#$%^&*().,]+") ){ 
 					valid = true;
 				}
 			}
-		}
 		
 		return valid;
 	}
