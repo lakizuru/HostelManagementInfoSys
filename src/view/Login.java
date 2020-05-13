@@ -128,6 +128,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoggedUserServices user = new LoggedUserServicesImpl();
         LoggedUser loggedUser = user.getLoggedUserInfo(username.getText());
+        SessionData.setLoggedUser(username.getText());
 
         if (loggedUser.isPass()) {
 
@@ -149,6 +150,13 @@ public class Login extends javax.swing.JFrame {
                         case "MODER": {
                                 ModerDashboard frameModer = new ModerDashboard();
                                 frameModer.setVisible(true);
+                                this.dispose();
+
+                                break;
+                        }
+                        case "STAFF": {
+                                StaffDashboard frameStaff = new StaffDashboard();
+                                frameStaff.setVisible(true);
                                 this.dispose();
 
                                 break;
