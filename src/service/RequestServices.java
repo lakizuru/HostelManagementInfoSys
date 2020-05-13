@@ -5,6 +5,7 @@
  */
 package service;
 
+import javax.swing.JTable;
 import model.Request;
 
 /**
@@ -14,4 +15,6 @@ import model.Request;
 public interface RequestServices {
     public void newRequest(Request request);
     public String takeDepartment();
+    public void acceptRequest(JTable table);
+ 
 }
