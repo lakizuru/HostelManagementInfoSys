@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoggedUserServices user = new LoggedUserServicesImpl();
         LoggedUser loggedUser = user.getLoggedUserInfo(username.getText());
-        SessionData.setLoggedUser(username.getText());
+        
 
         if (loggedUser.isPass()) {
 
