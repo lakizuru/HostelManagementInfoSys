@@ -15,7 +15,7 @@ import util.SessionData;
 import util.TableFunctions;
 /**
  *
- * @author Perera A.A.K.B. IT19080154
+ * @author Wellappuli Arachchige N.S IT19176598
  */
 public class GuestDashboard extends javax.swing.JFrame {
     /**
