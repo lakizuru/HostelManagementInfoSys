@@ -69,6 +69,7 @@ public class RequestServicesImpl implements RequestServices{
        
     String c = new String();
         try {
+            
             Statement st = Database.connectDB().createStatement();
             ResultSet rs = st.executeQuery("select department from staff where username='"+SessionData.getLoggedUser()+"';");
             c = rs.getString(1);
