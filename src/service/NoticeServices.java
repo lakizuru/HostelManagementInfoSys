@@ -6,11 +6,11 @@
 package service;
 
 import model.Notice;
-
 /**
  *
  * @author Semasinghe L.S. IT19051130
  */
 public interface NoticeServices {
     public void newNotice(Notice notice);
+    
 }

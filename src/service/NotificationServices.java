@@ -5,10 +5,12 @@
  */
 package service;
 
+import model.Notification;
+
 /**
  *
- * @author Perera A.A.K.B. IT19080154
+ * @author Semasinghe L.S. IT19051130
  */
 public interface NotificationServices {
-    
+    public void newNotification(Notification notif);
 }

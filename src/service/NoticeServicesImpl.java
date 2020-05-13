@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.Notice;
@@ -17,7 +16,6 @@ import util.Database;
 
 
 public class NoticeServicesImpl implements NoticeServices {
-    
     public void newNotice(Notice notice) {
         try {
                 //Openning DB connection
@@ -51,5 +49,4 @@ public class NoticeServicesImpl implements NoticeServices {
                 System.exit(-1);
         }
     }
-    
 }

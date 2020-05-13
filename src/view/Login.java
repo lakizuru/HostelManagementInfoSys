@@ -168,6 +168,11 @@ public class Login extends javax.swing.JFrame {
                             SessionData.setLoggedAccountType("GUEST");
                             this.dispose();
                             
+                                GuestDashboard frameGuest = new GuestDashboard();
+                                frameGuest.setVisible(true);
+                                this.dispose();
+
+                                break;
                         }
                         }
                 }

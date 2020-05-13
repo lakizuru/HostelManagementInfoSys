@@ -5,7 +5,6 @@
  */
 package service;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import model.Room;
 
@@ -15,5 +14,6 @@ import model.Room;
  */
 public interface RoomServices {
     public void AddRoom(Room room);
+
     public ArrayList<Room> getRooms ();
 }

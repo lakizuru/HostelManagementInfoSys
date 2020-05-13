@@ -69,7 +69,7 @@ public class RoomServicesImpl implements RoomServices {
 			connection.close();
 						
 		}
-		catch (Exception error) {
+		catch (ClassNotFoundException | SQLException error) {
 			JOptionPane.showMessageDialog(null, error, "Database Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}

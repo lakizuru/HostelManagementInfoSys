@@ -15,6 +15,7 @@ public class Notification {
     private String notifTitle;
     private String notifDate;
     private String notifDescription;
+    private String senderUsername;
 
     public Notification() {
     }
@@ -59,6 +60,15 @@ public class Notification {
     public void setNotifDescription(String notifDescription) {
         this.notifDescription = notifDescription;
     }
+
+    public String getSenderUsername() {
+        return senderUsername;
+    }
+
+    public void setSenderUsername(String senderUsername) {
+        this.senderUsername = senderUsername;
+    }
+    
     
     
     

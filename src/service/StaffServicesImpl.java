@@ -11,11 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+
 import model.Staff;
 import util.Database;
 
 
+
 public class StaffServicesImpl implements StaffServices {
+    
     public void newStaff (Staff staff) {
             try {
             //Openning DB connection
@@ -72,3 +75,5 @@ public class StaffServicesImpl implements StaffServices {
         }
         return staffList;
     } */
+
+

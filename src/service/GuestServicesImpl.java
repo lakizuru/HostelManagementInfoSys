@@ -5,10 +5,18 @@
  */
 package service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.Guest;
 import util.Database;
-import java.sql.*;
+
+
+
 
 
 public class GuestServicesImpl implements GuestServices {

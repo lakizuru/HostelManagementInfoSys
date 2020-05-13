@@ -7,14 +7,12 @@ package service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.LoggedUser;
-import model.User;
 import util.Database;
-import util.DateTime;
 
 
 public class LoggedUserServicesImpl implements LoggedUserServices {
@@ -44,7 +42,7 @@ public class LoggedUserServicesImpl implements LoggedUserServices {
                 connection.close();
 
         }
-        catch (Exception dbError) {
+        catch (ClassNotFoundException | SQLException dbError) {
                 JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
         }
@@ -65,7 +63,7 @@ public class LoggedUserServicesImpl implements LoggedUserServices {
                 connection.close();
 
         }
-        catch (Exception dbError) {
+        catch (ClassNotFoundException | SQLException dbError) {
                 JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
         }

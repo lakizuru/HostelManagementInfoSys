@@ -37,6 +37,7 @@ public class GuestDashboard extends javax.swing.JFrame {
         
           RequestServices User = new RequestServicesImpl();
           TableFunctions.RetrieveToTable(requestTable, "select reqTitle,date,description,acceptedBy from request WHERE username = '"+SessionData.getLoggedUser()+"'");
+          TableFunctions.RetrieveToTable(notifTable, "select notifTitle,date,description from notifications WHERE notifUsername = '"+SessionData.getLoggedUser()+"'");
     }
 
     /**
@@ -53,7 +54,8 @@ public class GuestDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        guestTable = new javax.swing.JTable();
+        notifTable = new javax.swing.JTable();
+        RefreshNotif = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         newRequest = new javax.swing.JButton();
         refreshReq = new javax.swing.JButton();
@@ -84,35 +86,44 @@ public class GuestDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HOME", jPanel2);
 
-        guestTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        guestTable.setModel(new javax.swing.table.DefaultTableModel(
+        notifTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notifTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title", "Date", "Description"
             }
         ));
-        jScrollPane2.setViewportView(guestTable);
+        jScrollPane2.setViewportView(notifTable);
+
+        RefreshNotif.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        RefreshNotif.setText("REFRESH");
+        RefreshNotif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshNotifActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RefreshNotif, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(RefreshNotif)
+                .addGap(22, 22, 22))
         );
 
         jTabbedPane1.addTab("NOTIFICATIONS", jPanel3);
@@ -311,6 +322,12 @@ public class GuestDashboard extends javax.swing.JFrame {
                                 this.dispose();
     }//GEN-LAST:event_newRequestActionPerformed
 
+    private void RefreshNotifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshNotifActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.ClearTable(notifTable);
+        TableFunctions.RetrieveToTable(notifTable, "select notifTitle,date,description from notifications WHERE notifUsername = '"+SessionData.getLoggedUser()+"'");
+    }//GEN-LAST:event_RefreshNotifActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -360,7 +377,7 @@ public class GuestDashboard extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable guestTable;
+    private javax.swing.JButton RefreshNotif;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -375,6 +392,7 @@ public class GuestDashboard extends javax.swing.JFrame {
     private javax.swing.JButton minimize;
     private javax.swing.JButton newNotice;
     private javax.swing.JButton newRequest;
+    private javax.swing.JTable notifTable;
     private javax.swing.JButton refreshReq;
     private javax.swing.JTable requestTable;
     // End of variables declaration//GEN-END:variables

@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,45 +29,6 @@ import util.SessionData;
  */
 public class RequestServicesImpl implements RequestServices{
 
-    @Override
-    public void newRequest(Request request) {
-        try {
-
-            //Openning DB connection
-            Class.forName(Database.dbDriver);
-            Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
-            Statement statement = connection.createStatement();
-
-            
-
-            //SQL INSERT statements for new Requests
-            String queryRequest = "INSERT INTO request (reqTitle, reqType, date, description, acceptedBy) VALUES (?,?,?,?,?)";
-
-            //Prepared Statement Queries
-            PreparedStatement psRequest = connection.prepareStatement(queryRequest);
-            psRequest.setString(1, request.getReqTitle());
-            psRequest.setString(2, request.getReqType());
-            psRequest.setString(3, DateTime.sqlTime());
-            psRequest.setString(4, request.getDescription());
-            psRequest.setString(5, request.getAcceptedBy());
-
-            //Executing Prepared Statements
-            psRequest.execute();
-
-            //Closing DB Connection
-            connection.close();
-        }
-        catch (SQLIntegrityConstraintViolationException e) {
-                JOptionPane.showMessageDialog(null, "You have entered existing request type! \n" + e, "Invalid Inputs!", JOptionPane.ERROR_MESSAGE);
-                System.exit(-1);
-        }
-        catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(-1);
-        }
-    }
-
-    @Override
     public String takeDepartment() {
        
     String c = new String();
@@ -77,9 +39,7 @@ public class RequestServicesImpl implements RequestServices{
             while(rs.next()){
             c = rs.getString(1);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RequestServicesImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(RequestServicesImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -87,8 +47,7 @@ public class RequestServicesImpl implements RequestServices{
     
     
     }
-
-    @Override
+    
     public void acceptRequest(JTable table) {
         try{String C1;
         int i = table.getSelectedRow();
@@ -117,10 +76,46 @@ public class RequestServicesImpl implements RequestServices{
         }catch(ArrayIndexOutOfBoundsException e1){
         
         }
-        }catch(Exception e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
+        }catch(HeadlessException | ClassNotFoundException | SQLException e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
                 }
     }
-
-   
     
+    public void newRequest(Request request) {
+        try {
+
+            //Openning DB connection
+            Class.forName(Database.dbDriver);
+            Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+            Statement statement = connection.createStatement();
+
+            
+
+            //SQL INSERT statements for new Requests
+            String queryRequest = "INSERT INTO request (reqTitle, reqType, date, description, acceptedBy,username) VALUES (?,?,?,?,?,?)";
+
+            //Prepared Statement Queries
+            PreparedStatement psRequest = connection.prepareStatement(queryRequest);
+            psRequest.setString(1, request.getReqTitle());
+            psRequest.setString(2, request.getReqType());
+            psRequest.setString(3, DateTime.sqlTime());
+            psRequest.setString(4, request.getDescription());
+            psRequest.setString(5, request.getAcceptedBy());
+            psRequest.setString(6, SessionData.getLoggedUser());
+
+            //Executing Prepared Statements
+            psRequest.execute();
+
+            //Closing DB Connection
+            connection.close();
+        }
+        catch (SQLIntegrityConstraintViolationException e) {
+                JOptionPane.showMessageDialog(null, "You have entered existing request type! \n" + e, "Invalid Inputs!", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+        catch (ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+    }
+   
 }

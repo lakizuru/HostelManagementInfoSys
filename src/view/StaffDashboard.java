@@ -37,6 +37,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         
           RequestServices thisUser = new RequestServicesImpl();
           TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
+          TableFunctions.RetrieveToTable(notifTable, "select notifUsername,notifTitle,date,description from notifications WHERE senderUsername = '"+SessionData.getLoggedUser()+"'");
     }
 
     /**
@@ -53,7 +54,9 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        guestTable = new javax.swing.JTable();
+        notifTable = new javax.swing.JTable();
+        RefreshNotifBt = new javax.swing.JButton();
+        newNotification = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         acceptRequest = new javax.swing.JButton();
         refreshReq = new javax.swing.JButton();
@@ -86,35 +89,56 @@ public class StaffDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HOME", jPanel2);
 
-        guestTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        guestTable.setModel(new javax.swing.table.DefaultTableModel(
+        notifTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notifTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Username", "Title ", "Date", "Description"
             }
         ));
-        jScrollPane2.setViewportView(guestTable);
+        jScrollPane2.setViewportView(notifTable);
+
+        RefreshNotifBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        RefreshNotifBt.setText("REFRESH");
+        RefreshNotifBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshNotifBtActionPerformed(evt);
+            }
+        });
+
+        newNotification.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        newNotification.setText("NEW NOTIFICATION");
+        newNotification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newNotificationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(RefreshNotifBt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(newNotification)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newNotification)
+                    .addComponent(RefreshNotifBt))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("NOTIFICATIONS", jPanel3);
@@ -151,7 +175,7 @@ public class StaffDashboard extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap(517, Short.MAX_VALUE)
                         .addComponent(refreshReq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,8 +188,8 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(acceptRequest)
                     .addComponent(refreshReq))
@@ -346,6 +370,19 @@ public class StaffDashboard extends javax.swing.JFrame {
        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
     }//GEN-LAST:event_acceptRequestActionPerformed
 
+    private void newNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNotificationActionPerformed
+        // TODO add your handling code here:
+         AddNotification frameAddNotification = new AddNotification();
+         frameAddNotification.setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_newNotificationActionPerformed
+
+    private void RefreshNotifBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshNotifBtActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.ClearTable(notifTable);
+        TableFunctions.RetrieveToTable(notifTable, "select notifUsername,notifTitle,date,description from notifications WHERE senderUsername = '"+SessionData.getLoggedUser()+"'");
+    }//GEN-LAST:event_RefreshNotifBtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,8 +428,8 @@ public class StaffDashboard extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RefreshNotifBt;
     private javax.swing.JButton acceptRequest;
-    private javax.swing.JTable guestTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -407,7 +444,9 @@ public class StaffDashboard extends javax.swing.JFrame {
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
     private javax.swing.JButton newNotice;
+    private javax.swing.JButton newNotification;
     private javax.swing.JButton newRoomButton;
+    private javax.swing.JTable notifTable;
     private javax.swing.JButton refreshReq;
     private javax.swing.JTable requestTable;
     // End of variables declaration//GEN-END:variables

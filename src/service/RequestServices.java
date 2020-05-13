@@ -13,8 +13,8 @@ import model.Request;
  * @author Perera A.A.K.B. Perera
  */
 public interface RequestServices {
-    public void newRequest(Request request);
     public String takeDepartment();
     public void acceptRequest(JTable table);
+    public void newRequest(Request request);
  
 }

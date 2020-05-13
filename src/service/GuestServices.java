@@ -10,6 +10,6 @@ import model.Guest;
  *
  * @author Semasinghe L.S. IT19051130
  */
-public interface GuestServices {
-    public void newGuest (Guest guest); 
+public interface GuestServices { 
+   public void newGuest (Guest guest);
 }

@@ -20,8 +20,7 @@ import util.DateTime;
 
 public class UserServicesImpl implements UserServices {
 
-    @Override
-        public void newAccount(String username, String password, String accountType) {
+    public void newAccount(String username, String password, String accountType) {
         try {
                 //Openning DB connection
                 Class.forName(Database.dbDriver);
@@ -51,7 +50,8 @@ public class UserServicesImpl implements UserServices {
                 System.exit(-1);
         }
 }
-        public void newUser (User user) {
+    
+    public void newUser (User user) {
         try {
             //Openning DB connection
             Class.forName(Database.dbDriver);
@@ -79,11 +79,12 @@ public class UserServicesImpl implements UserServices {
 
         }
 
-        catch (Exception e) {
+        catch (ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
                 
                 System.exit(-1);
         }
     }
+        
     
 }
