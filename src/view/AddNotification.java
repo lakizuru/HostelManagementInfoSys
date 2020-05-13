@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author KAVINDU
+ * @author Perera A.A.K.B. Perera
  */
 public class AddNotification extends javax.swing.JFrame {
 
