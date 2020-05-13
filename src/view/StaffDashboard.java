@@ -62,10 +62,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         refreshReq = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        newNotice = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         logoutBtn = new javax.swing.JButton();
         loggedUser = new javax.swing.JLabel();
@@ -198,56 +195,15 @@ public class StaffDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("REQUESTS", jPanel4);
 
-        newRoomButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        newRoomButton.setText("NEW ROOM");
-        newRoomButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newRoomButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(602, Short.MAX_VALUE)
-                .addComponent(newRoomButton)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(437, Short.MAX_VALUE)
-                .addComponent(newRoomButton)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("GUEST INFO", jPanel5);
-
-        newNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        newNotice.setText("NEW NOTICE");
-        newNotice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newNoticeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(588, Short.MAX_VALUE)
-                .addComponent(newNotice)
-                .addContainerGap())
+            .addGap(0, 751, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(437, Short.MAX_VALUE)
-                .addComponent(newNotice)
-                .addContainerGap())
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("NOTICES", jPanel6);
@@ -345,16 +301,6 @@ public class StaffDashboard extends javax.swing.JFrame {
         setState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeActionPerformed
 
-    private void newNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNoticeActionPerformed
-        // TODO add your handling code here:
-        new AddNotice().setVisible(true);
-    }//GEN-LAST:event_newNoticeActionPerformed
-
-    private void newRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoomButtonActionPerformed
-        // TODO add your handling code here:
-        new AddRoom().setVisible(true);
-    }//GEN-LAST:event_newRoomButtonActionPerformed
-
     private void refreshReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshReqActionPerformed
         // TODO add your handling code here:
         TableFunctions.ClearTable(requestTable);
@@ -434,7 +380,6 @@ public class StaffDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
@@ -443,9 +388,7 @@ public class StaffDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
-    private javax.swing.JButton newNotice;
     private javax.swing.JButton newNotification;
-    private javax.swing.JButton newRoomButton;
     private javax.swing.JTable notifTable;
     private javax.swing.JButton refreshReq;
     private javax.swing.JTable requestTable;
