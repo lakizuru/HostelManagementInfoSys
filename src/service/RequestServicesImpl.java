@@ -71,8 +71,10 @@ public class RequestServicesImpl implements RequestServices{
         try {
             
             Statement st = Database.connectDB().createStatement();
-            ResultSet rs = st.executeQuery("select department from staff where username='"+SessionData.getLoggedUser()+"';");
+            ResultSet rs = st.executeQuery("select department,username from staff where username='"+SessionData.getLoggedUser()+"';");
+            while(rs.next()){
             c = rs.getString(1);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RequestServicesImpl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -80,6 +82,7 @@ public class RequestServicesImpl implements RequestServices{
         }
     
     return c;
+    
     
     }
 
