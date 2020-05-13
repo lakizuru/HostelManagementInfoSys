@@ -40,7 +40,7 @@ public class RequestServicesImpl implements RequestServices{
             
 
             //SQL INSERT statements for new Requests
-            String queryRequest = "INSERT INTO request (reqTitle, reqType, date, description, acceptedBy) VALUES (?,?,?,?,?)";
+            String queryRequest = "INSERT INTO request (reqTitle, reqType, date, description, acceptedBy,username) VALUES (?,?,?,?,?,?)";
 
             //Prepared Statement Queries
             PreparedStatement psRequest = connection.prepareStatement(queryRequest);
@@ -49,6 +49,7 @@ public class RequestServicesImpl implements RequestServices{
             psRequest.setString(3, DateTime.sqlTime());
             psRequest.setString(4, request.getDescription());
             psRequest.setString(5, request.getAcceptedBy());
+            psRequest.setString(6, SessionData.getLoggedUser());
 
             //Executing Prepared Statements
             psRequest.execute();
