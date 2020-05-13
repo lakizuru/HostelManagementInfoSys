@@ -161,6 +161,13 @@ public class Login extends javax.swing.JFrame {
 
                                 break;
                         }
+                        case "GUEST": {
+                                GuestDashboard frameGuest = new GuestDashboard();
+                                frameGuest.setVisible(true);
+                                this.dispose();
+
+                                break;
+                        }
                         }
                 }
 
