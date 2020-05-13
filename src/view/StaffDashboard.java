@@ -35,8 +35,8 @@ public class StaffDashboard extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
-          RequestServices staffname = new RequestServicesImpl();
-          TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+staffname.takeDepartment()+"')");
+          RequestServices thisUser = new RequestServicesImpl();
+          TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
     }
 
     /**
@@ -55,10 +55,10 @@ public class StaffDashboard extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        addStaff = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        requestTable = new javax.swing.JTable();
+        acceptRequest = new javax.swing.JButton();
         refreshReq = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        requestTable = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -81,7 +81,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("HOME", jPanel2);
@@ -119,35 +119,13 @@ public class StaffDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("NOTIFICATIONS", jPanel3);
 
-        addStaff.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        addStaff.setText("ACCEPT");
-        addStaff.addActionListener(new java.awt.event.ActionListener() {
+        acceptRequest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        acceptRequest.setText("ACCEPT");
+        acceptRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addStaffActionPerformed(evt);
+                acceptRequestActionPerformed(evt);
             }
         });
-
-        requestTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        requestTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Request Title", "Username", "Date", "Description", "Accepted By"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        requestTable.setColumnSelectionAllowed(true);
-        requestTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(requestTable);
-        requestTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         refreshReq.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         refreshReq.setText("REFRESH");
@@ -157,29 +135,39 @@ public class StaffDashboard extends javax.swing.JFrame {
             }
         });
 
+        requestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Request Title", "Username", "Date", "Description", "Accepted By"
+            }
+        ));
+        jScrollPane3.setViewportView(requestTable);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 507, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(517, Short.MAX_VALUE)
                         .addComponent(refreshReq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addStaff)))
+                        .addComponent(acceptRequest))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane3)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addStaff)
+                    .addComponent(acceptRequest)
                     .addComponent(refreshReq))
                 .addContainerGap())
         );
@@ -206,7 +194,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(407, Short.MAX_VALUE)
+                .addContainerGap(437, Short.MAX_VALUE)
                 .addComponent(newRoomButton)
                 .addContainerGap())
         );
@@ -233,7 +221,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(407, Short.MAX_VALUE)
+                .addContainerGap(437, Short.MAX_VALUE)
                 .addComponent(newNotice)
                 .addContainerGap())
         );
@@ -248,7 +236,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("SETTINGS", jPanel7);
@@ -346,14 +334,17 @@ public class StaffDashboard extends javax.swing.JFrame {
     private void refreshReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshReqActionPerformed
         // TODO add your handling code here:
         TableFunctions.ClearTable(requestTable);
-        RequestServices staffname = new RequestServicesImpl();
-        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+staffname.takeDepartment()+"')");
+        RequestServices thisUser = new RequestServicesImpl();
+        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
     }//GEN-LAST:event_refreshReqActionPerformed
 
-    private void addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStaffActionPerformed
+    private void acceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptRequestActionPerformed
         // TODO add your handling code here:
-        new AddStaff().setVisible(true);
-    }//GEN-LAST:event_addStaffActionPerformed
+       RequestServices thisUser = new RequestServicesImpl();
+       thisUser.acceptRequest(requestTable);
+       TableFunctions.ClearTable(requestTable);
+       TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
+    }//GEN-LAST:event_acceptRequestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,7 +391,7 @@ public class StaffDashboard extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addStaff;
+    private javax.swing.JButton acceptRequest;
     private javax.swing.JTable guestTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -409,8 +400,8 @@ public class StaffDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
