@@ -5,6 +5,7 @@
  */
 package service;
 
+import javax.swing.JTable;
 import model.Notice;
 /**
  *

@@ -15,6 +15,7 @@ import model.Guest;
 import model.Staff;
 import model.loggingUser;
 import util.Database;
+import util.DateTime;
 
 
 public class LoggingUserServicesImpl implements LoggingUserServices {
@@ -123,5 +124,24 @@ public class LoggingUserServicesImpl implements LoggingUserServices {
                 System.exit(-1);
         }
         return loggedGuest;
+    }
+    
+    public void updateLastLogin(String username){
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryAttempts = "UPDATE `oop`.`login` SET `lastLogin` = '" + DateTime.sqlTime() + "', `attempts` = 0 WHERE `username` = '" + username + "'";
+                statement.execute(queryAttempts);
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
     }
 }

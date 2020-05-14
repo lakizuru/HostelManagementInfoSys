@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.TabExpander;
 import model.Room;
 import model.Staff;
-import service.RoomServices;
-import service.RoomServicesImpl;
+import service.GuestServices;
+import service.GuestServicesImpl;
+import service.RequestServices;
+import service.RequestServicesImpl;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -30,7 +33,7 @@ public class ModerDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Generating tables
-        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
+        
         TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g"
                 + " WHERE u.username = g.username");
@@ -60,17 +63,38 @@ public class ModerDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        noOfRegGuests = new javax.swing.JLabel();
+        noOfAvailGuest = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        noticeTable = new javax.swing.JTable();
+        updateNotice = new javax.swing.JButton();
+        username = new javax.swing.JTextField();
+        checkInOutBtnHome = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         addGuest = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
         updateGuestTable = new javax.swing.JButton();
+        checkInOutBtn = new javax.swing.JButton();
+        deleteGuest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        requestTable = new javax.swing.JTable();
+        refreshReq = new javax.swing.JButton();
+        acceptRequest = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
         updateRoomsTable = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        notifTable = new javax.swing.JTable();
+        RefreshNotifBt = new javax.swing.JButton();
+        newNotification = new javax.swing.JButton();
+        deleteNotification = new javax.swing.JButton();
         loggedUser = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -80,15 +104,127 @@ public class ModerDashboard extends javax.swing.JFrame {
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("RGSTD. GUESTS");
+
+        noOfRegGuests.setFont(new java.awt.Font("Tahoma", 1, 75)); // NOI18N
+        noOfRegGuests.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noOfRegGuests.setText("0");
+
+        noOfAvailGuest.setFont(new java.awt.Font("Tahoma", 1, 75)); // NOI18N
+        noOfAvailGuest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noOfAvailGuest.setText("0");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("AVLBL. GUESTS");
+
+        noticeTable.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        noticeTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date/Time", "Notice"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        noticeTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane6.setViewportView(noticeTable);
+
+        updateNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        updateNotice.setText("REFRESH");
+        updateNotice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateNoticeActionPerformed(evt);
+            }
+        });
+
+        username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        checkInOutBtnHome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        checkInOutBtnHome.setText("CHECK-IN/OUT");
+        checkInOutBtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInOutBtnHomeActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Search by Username");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(noOfRegGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(checkInOutBtnHome))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel3)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(noOfAvailGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(92, 92, 92))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(updateNotice)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(29, 29, 29)
+                    .addComponent(jScrollPane6)
+                    .addGap(29, 29, 29)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(noOfAvailGuest)
+                            .addComponent(noOfRegGuests))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addComponent(updateNotice))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkInOutBtnHome)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(190, 190, 190)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(54, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("HOME", jPanel2);
@@ -109,7 +245,15 @@ public class ModerDashboard extends javax.swing.JFrame {
             new String [] {
                 "Username", "Name", "Phone", "Room#", "Availability"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(guestTable);
 
         updateGuestTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -120,50 +264,115 @@ public class ModerDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkInOutBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        checkInOutBtn.setText("CHECK-IN/OUT");
+        checkInOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInOutBtnActionPerformed(evt);
+            }
+        });
+
+        deleteGuest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteGuest.setText("DELETE GUEST");
+        deleteGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteGuestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(checkInOutBtn)
+                        .addGap(59, 59, 59)
+                        .addComponent(deleteGuest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addGuest)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(updateGuestTable)
-                    .addContainerGap(590, Short.MAX_VALUE)))
+                    .addContainerGap(677, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addGuest)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkInOutBtn)
+                    .addComponent(addGuest)
+                    .addComponent(deleteGuest))
+                .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(407, Short.MAX_VALUE)
+                    .addContainerGap(436, Short.MAX_VALUE)
                     .addComponent(updateGuestTable)
                     .addContainerGap()))
         );
 
         jTabbedPane1.addTab("GUESTS", jPanel3);
 
+        requestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Request Title", "Username", "Date", "Description", "Accepted By"
+            }
+        ));
+        jScrollPane4.setViewportView(requestTable);
+
+        refreshReq.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        refreshReq.setText("REFRESH");
+        refreshReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshReqActionPerformed(evt);
+            }
+        });
+
+        acceptRequest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        acceptRequest.setText("ACCEPT");
+        acceptRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptRequestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(refreshReq)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(acceptRequest)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acceptRequest)
+                    .addComponent(refreshReq))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("REQUESTS", jPanel4);
@@ -174,7 +383,7 @@ public class ModerDashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Room#", "Rental Fee", "Capasity", "Occupied"
+                "Room#", "Rental Fee", "Occupied", "Capasity"
             }
         ));
         jScrollPane2.setViewportView(roomTable);
@@ -194,7 +403,7 @@ public class ModerDashboard extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(updateRoomsTable)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -204,7 +413,7 @@ public class ModerDashboard extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateRoomsTable)
                 .addContainerGap())
@@ -212,15 +421,68 @@ public class ModerDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("ROOMS", jPanel5);
 
+        notifTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notifTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Username", "Title ", "Date", "Description"
+            }
+        ));
+        jScrollPane5.setViewportView(notifTable);
+
+        RefreshNotifBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        RefreshNotifBt.setText("REFRESH");
+        RefreshNotifBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshNotifBtActionPerformed(evt);
+            }
+        });
+
+        newNotification.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        newNotification.setText("NEW NOTIFICATION");
+        newNotification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newNotificationActionPerformed(evt);
+            }
+        });
+
+        deleteNotification.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteNotification.setText("DELETE NOTIFICATION");
+        deleteNotification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNotificationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(RefreshNotifBt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteNotification)
+                        .addGap(124, 124, 124)
+                        .addComponent(newNotification))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newNotification)
+                    .addComponent(RefreshNotifBt)
+                    .addComponent(deleteNotification))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("MESSEGES", jPanel6);
@@ -248,16 +510,16 @@ public class ModerDashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(minimize, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(loggedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(logoutBtn))
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(minimize))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(loggedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutBtn)))
                 .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,8 +531,7 @@ public class ModerDashboard extends javax.swing.JFrame {
                     .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loggedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,6 +584,78 @@ public class ModerDashboard extends javax.swing.JFrame {
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
     }//GEN-LAST:event_updateGuestTableActionPerformed
 
+    private void checkInOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInOutBtnActionPerformed
+        // TODO add your handling code here:
+        GuestServices guestService = new GuestServicesImpl();
+        guestService.checkInOut(guestTable);
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+    }//GEN-LAST:event_checkInOutBtnActionPerformed
+
+    private void refreshReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshReqActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.ClearTable(requestTable);
+        RequestServices thisUser = new RequestServicesImpl();
+        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
+    }//GEN-LAST:event_refreshReqActionPerformed
+
+    private void acceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptRequestActionPerformed
+        // TODO add your handling code here:
+        RequestServices thisUser = new RequestServicesImpl();
+        thisUser.acceptRequest(requestTable);
+        TableFunctions.ClearTable(requestTable);
+        TableFunctions.RetrieveToTable(requestTable, "select reqTitle,username,date,description,acceptedBy from request WHERE (acceptedBy is null or acceptedBy ='"+SessionData.getLoggedUser()+"') and (reqType='"+thisUser.takeDepartment()+"')");
+    }//GEN-LAST:event_acceptRequestActionPerformed
+
+    private void RefreshNotifBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshNotifBtActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.ClearTable(notifTable);
+        TableFunctions.RetrieveToTable(notifTable, "select notifUsername,notifTitle,date,description from notifications WHERE senderUsername = '"+SessionData.getLoggedUser()+"'");
+    }//GEN-LAST:event_RefreshNotifBtActionPerformed
+
+    private void newNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNotificationActionPerformed
+        // TODO add your handling code here:
+        AddNotification frameAddNotification = new AddNotification();
+        frameAddNotification.setVisible(true);
+        this.dispose();
+       
+    }//GEN-LAST:event_newNotificationActionPerformed
+
+    private void deleteNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNotificationActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.DeleteSelectedRow(notifTable);
+        TableFunctions.ClearTable(notifTable);
+        TableFunctions.RetrieveToTable(notifTable, "select notifUsername,notifTitle,date,description from notifications WHERE senderUsername = '"+SessionData.getLoggedUser()+"'");
+    }//GEN-LAST:event_deleteNotificationActionPerformed
+
+    private void deleteGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGuestActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.DeleteSelectedRow(guestTable);
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+    }//GEN-LAST:event_deleteGuestActionPerformed
+
+    private void checkInOutBtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInOutBtnHomeActionPerformed
+        // TODO add your handling code here:
+        GuestServices guestService = new GuestServicesImpl();
+        guestService.checkInOut(username.getText());
+        
+        GuestServices guests = new GuestServicesImpl();
+        noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
+        noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
+        
+    }//GEN-LAST:event_checkInOutBtnHomeActionPerformed
+
+    private void updateNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNoticeActionPerformed
+        // TODO add your handling code here:
+        GuestServices guests = new GuestServicesImpl();
+        noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
+        noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
+        
+        TableFunctions.ClearTable(noticeTable);
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients = '____1____' ORDER BY dateTime DESC;");
+    }//GEN-LAST:event_updateNoticeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,15 +672,11 @@ public class ModerDashboard extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModerDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModerDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModerDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ModerDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -376,8 +705,17 @@ public class ModerDashboard extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RefreshNotifBt;
+    private javax.swing.JButton acceptRequest;
     private javax.swing.JButton addGuest;
+    private javax.swing.JButton checkInOutBtn;
+    private javax.swing.JButton checkInOutBtnHome;
+    private javax.swing.JButton deleteGuest;
+    private javax.swing.JButton deleteNotification;
     private javax.swing.JTable guestTable;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -386,12 +724,24 @@ public class ModerDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
+    private javax.swing.JButton newNotification;
+    private javax.swing.JLabel noOfAvailGuest;
+    private javax.swing.JLabel noOfRegGuests;
+    private javax.swing.JTable noticeTable;
+    private javax.swing.JTable notifTable;
+    private javax.swing.JButton refreshReq;
+    private javax.swing.JTable requestTable;
     private javax.swing.JTable roomTable;
     private javax.swing.JButton updateGuestTable;
+    private javax.swing.JButton updateNotice;
     private javax.swing.JButton updateRoomsTable;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

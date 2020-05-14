@@ -13,5 +13,6 @@ import model.Staff;
  */
 public interface StaffServices {
     public void newStaff (Staff staff);
+    public int getNoOfStaff();
     //public ArrayList<Staff> getStaff();
 }

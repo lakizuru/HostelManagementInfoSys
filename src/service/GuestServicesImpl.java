@@ -8,10 +8,13 @@ package service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.Guest;
 import util.Database;
 
@@ -26,21 +29,18 @@ public class GuestServicesImpl implements GuestServices {
 			//Openning DB connection
 			Class.forName(Database.dbDriver);
 			Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
-			Statement statement = connection.createStatement();
 			
 			UserServices userService = new UserServicesImpl();
                         userService.newUser(guest);
 			
 			//SQL INSERT statements for new Guests
-			String queryGuest = "INSERT INTO guest (username, availability, room, emergName, emergPhone) VALUES (?,?,?,?,?)";
+			String queryGuest = "INSERT INTO guest (username, availability, room) VALUES (?,?,?)";
 			
 			//Prepared Statement Queries
 			PreparedStatement psGuest = connection.prepareStatement(queryGuest);
 			psGuest.setString(1, guest.getUsername());
 			psGuest.setBoolean(2, guest.isAvailability());
 			psGuest.setString(3, guest.getRoom());
-                        psGuest.setString(4, guest.getEmName());
-                        psGuest.setString(5, guest.getEmPhone());
 			
 			//Executing Prepared Statements
 			psGuest.execute();
@@ -61,4 +61,126 @@ public class GuestServicesImpl implements GuestServices {
 			System.exit(-1);
 		}
 	}
+    
+    public int getNoOfRegGuests(){
+        int count = 0;
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryGuestCount = "SELECT COUNT(*) FROM guest";
+
+                ResultSet rsGuestCount = statement.executeQuery(queryGuestCount);
+                rsGuestCount.next();
+                
+                count = rsGuestCount.getInt(1);
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+        return count;
+    }
+    
+    public int getNoOfAvailGuests(){
+        int count = 0;
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryGuestCount = "SELECT COUNT(*) FROM guest WHERE availability = 1";
+
+                ResultSet rsGuestCount = statement.executeQuery(queryGuestCount);
+                rsGuestCount.next();
+                
+                count = rsGuestCount.getInt(1);
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+        return count;
+    }
+    
+    public void checkInOut(JTable table){
+        
+        int i = table.getSelectedRow();
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String username = model.getValueAt(i, 0).toString();
+        
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryGuestAvail = "SELECT availability FROM guest WHERE username = '" + username + "';";
+
+                ResultSet rsGuestAvail = statement.executeQuery(queryGuestAvail);
+                rsGuestAvail.next();
+                
+                if(rsGuestAvail.getInt(1) == 1){
+                    queryGuestAvail = "UPDATE `oop`.`guest` SET `availability` = 0 WHERE `username` = '" + username + "';";
+                }
+                else if (rsGuestAvail.getInt(1) == 0){
+                    queryGuestAvail = "UPDATE `oop`.`guest` SET `availability` = 1 WHERE `username` = '" + username + "';";
+                }
+                
+                statement.execute(queryGuestAvail);
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+    }
+    
+    public void checkInOut(String username){
+        
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryGuestAvail = "SELECT availability FROM guest WHERE username = '" + username + "';";
+
+                ResultSet rsGuestAvail = statement.executeQuery(queryGuestAvail);
+                
+                if(rsGuestAvail.next()){
+                    if(rsGuestAvail.getInt(1) == 1){
+                    queryGuestAvail = "UPDATE `oop`.`guest` SET `availability` = 0 WHERE `username` = '" + username + "';";
+                }
+                else if (rsGuestAvail.getInt(1) == 0){
+                    queryGuestAvail = "UPDATE `oop`.`guest` SET `availability` = 1 WHERE `username` = '" + username + "';";
+                }
+                
+                statement.executeUpdate(queryGuestAvail);
+                JOptionPane.showMessageDialog(null, "Success!", "Successfully changed the Availability status", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Invalid Username", "Username you have entered is not found in the database", JOptionPane.ERROR_MESSAGE);
+                }
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+    }
 }

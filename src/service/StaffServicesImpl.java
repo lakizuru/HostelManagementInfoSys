@@ -8,6 +8,7 @@ package service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -30,15 +31,13 @@ public class StaffServicesImpl implements StaffServices {
             userService.newUser(staff);
 
             //SQL INSERT statements for new Staff
-            String queryStaff = "INSERT INTO staff (username, salary, bank, accNumber, department) VALUES (?,?,?,?,?)";
+            String queryStaff = "INSERT INTO staff (username, salary, department) VALUES (?,?,?)";
 
             //Prepared Statement Queries
             PreparedStatement psStaff = connection.prepareStatement(queryStaff);
             psStaff.setString(1, staff.getUsername());
             psStaff.setDouble(2, staff.getSalary());
-            psStaff.setString(3, staff.getBank());
-            psStaff.setString(4, staff.getAccountNo());
-            psStaff.setString(5, staff.getDept());
+            psStaff.setString(3, staff.getDept());
 
             //Executing Prepared Statements
             psStaff.execute();
@@ -50,6 +49,30 @@ public class StaffServicesImpl implements StaffServices {
                     JOptionPane.showMessageDialog(null, "Task Failed! \n" + e, "Database Error", JOptionPane.ERROR_MESSAGE);
                     System.exit(-1);
             }
+    }
+    public int getNoOfStaff(){
+        int count = 0;
+        try {
+                Class.forName(Database.dbDriver);
+                Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                Statement statement = connection.createStatement();
+
+                String queryStaffCount = "SELECT COUNT(*) FROM staff";
+
+                ResultSet rsStaffCount = statement.executeQuery(queryStaffCount);
+                rsStaffCount.next();
+                
+                count = rsStaffCount.getInt(1);
+               
+                //Closing DB Connection
+                connection.close();
+
+        }
+        catch (ClassNotFoundException | SQLException dbError) {
+                JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+        }
+        return count;
     }
 }
 

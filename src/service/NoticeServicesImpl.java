@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.Notice;
 import util.Database;
 
@@ -49,4 +51,5 @@ public class NoticeServicesImpl implements NoticeServices {
                 System.exit(-1);
         }
     }
+    
 }

@@ -5,12 +5,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import util.Validate;
-import model.Room;
 import javax.swing.JOptionPane;
 import model.Guest;
 import service.GuestServices;
 import service.GuestServicesImpl;
-import service.RoomServices;
 import service.RoomServicesImpl;
 import service.UserServices;
 import service.UserServicesImpl;
@@ -72,10 +70,6 @@ public class AddGuest extends javax.swing.JFrame {
         address = new javax.swing.JTextField();
         nic = new javax.swing.JTextField();
         phone = new javax.swing.JTextField();
-        eName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        ePhone = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -83,7 +77,6 @@ public class AddGuest extends javax.swing.JFrame {
         password1 = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -164,16 +157,6 @@ public class AddGuest extends javax.swing.JFrame {
 
         phone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        eName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Name");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Phone");
-
-        ePhone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Username");
 
@@ -207,9 +190,6 @@ public class AddGuest extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("GUEST'S DETAILS");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setText("EMERGENCY CONTACT DETAILS");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("LOGIN CREDENTIALS");
@@ -254,6 +234,10 @@ public class AddGuest extends javax.swing.JFrame {
                                 .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(name)
                             .addComponent(address)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -261,21 +245,8 @@ public class AddGuest extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(submitButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(eName, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10)
                             .addComponent(jLabel11)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,16 +280,6 @@ public class AddGuest extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(eName)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ePhone))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -341,7 +302,7 @@ public class AddGuest extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -365,45 +326,37 @@ public class AddGuest extends javax.swing.JFrame {
 
                                         //checks validity of NIC
                                         if (Validate.isNICValid(nic.getText())) {
+                                                // Converting gender Radio Button Inputs to boolean
 
-                                                //checks validity of emergency contact details
-                                                if (Validate.isNameValid(eName.getText()) && Validate.isPhoneValid(ePhone.getText())) {
-                                                        // Converting gender Radio Button Inputs to boolean
-                                                        
-                                                        
-                                                        if (male.isSelected()) {
-                                                                gender = true;
-                                                        }
-                                                        else if (female.isSelected()){
-                                                                gender = false;
-                                                        }
-
-                                                        // Converting age Radio Button Inputs to boolean
-                                                        
-
-                                                        if (adult.isSelected()) {
-                                                                age = true;
-                                                        }
-                                                        else if (minor.isSelected()){
-                                                                age = false;
-                                                        }
-
-
-                                                        //Creating Guest Object
-                                                        Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, RoomServicesImpl.assignRoom(age, gender), age, eName.getText(), ePhone.getText());
-
-                                                        //Creating a DB entries
-                                                        UserServices userService = new UserServicesImpl();
-                                                        userService.newAccount(username.getText(), pass1, "GUEST");
-                                                        
-                                                        GuestServices guestService = new GuestServicesImpl();
-                                                        guestService.newGuest(guest);
-                                                        
-                                                        this.dispose();
+                                                if (male.isSelected()) {
+                                                        gender = true;
                                                 }
-                                                else {
-                                                        JOptionPane.showMessageDialog(null, "Emergency Contact Details you have entered are invalid!\nPlease enter valid details", "Invalid Emergency Contact Info", JOptionPane.ERROR_MESSAGE);
+                                                else if (female.isSelected()){
+                                                        gender = false;
                                                 }
+
+                                                // Converting age Radio Button Inputs to boolean
+
+
+                                                if (adult.isSelected()) {
+                                                        age = true;
+                                                }
+                                                else if (minor.isSelected()){
+                                                        age = false;
+                                                }
+
+
+                                                //Creating Guest Object
+                                                Guest guest = new Guest(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, true, RoomServicesImpl.assignRoom(age, gender), age);
+
+                                                //Creating a DB entries
+                                                UserServices userService = new UserServicesImpl();
+                                                userService.newAccount(username.getText(), pass1, "GUEST");
+
+                                                GuestServices guestService = new GuestServicesImpl();
+                                                guestService.newGuest(guest);
+
+                                                this.dispose();
                                         }
                                         else {
                                                 JOptionPane.showMessageDialog(null, "Entered NIC number is invalid.\nPlease enter a valid NIC number", "Invalid NIC", JOptionPane.ERROR_MESSAGE);
@@ -474,18 +427,13 @@ public class AddGuest extends javax.swing.JFrame {
     private javax.swing.JRadioButton adult;
     private javax.swing.ButtonGroup ageGroup;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField eName;
-    private javax.swing.JTextField ePhone;
     private javax.swing.JRadioButton female;
     private javax.swing.ButtonGroup genderGroup;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

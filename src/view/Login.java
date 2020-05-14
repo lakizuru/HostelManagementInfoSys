@@ -133,11 +133,13 @@ public class Login extends javax.swing.JFrame {
         if (loggedUser.isPass()) {
 
                 if (loggedUser.getPassword().equals(String.valueOf(password.getPassword()))) {
-                        SessionData.setLoggedUser(loggedUser.getUsername());
+                        //SessionData.setLoggedUser(loggedUser.getUsername());
 
                         JOptionPane.showMessageDialog(this, loggedUser.getAttempts() + 
                                 " unsuccessful login attempt(s) since last successful login at " 
                                 + loggedUser.getLastLogin(), "Login Successful!", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        user.updateLastLogin(loggedUser.getUsername());
 
                         switch (loggedUser.getAccountType()) {
                         case "ADMIN": {
@@ -174,6 +176,8 @@ public class Login extends javax.swing.JFrame {
                         case "GUEST": {
                                 LoggingUserServices logUser = new LoggingUserServicesImpl();
                                 Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
+                                
+                                SessionData.setLoggedUser(loggedGuest.getUsername());
                                 
                                 GuestDashboard frameGuest = new GuestDashboard();
                                 frameGuest.setVisible(true);

@@ -407,7 +407,8 @@ public class AddAdminModer extends javax.swing.JFrame {
                                                         }
 
                                                         //Creating staff object
-                                                        Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender, Integer.parseInt(salary.getText()), bank.getSelectedItem().toString(), accNo.getText(), "Admin" );
+                                                        Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender,
+                                                                Integer.parseInt(salary.getText()), "Admin" );
 
                                                         //creating a DB entry for the new staff
                                                         UserServices userService = new UserServicesImpl();

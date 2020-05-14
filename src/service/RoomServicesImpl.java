@@ -140,9 +140,7 @@ public class RoomServicesImpl implements RoomServices {
                     System.exit(-1);
             }
         return roomsList;
-        }
-
-        
+        }     
         
     
 }

@@ -18,4 +18,5 @@ public interface LoggingUserServices {
     public void failedLogin(String username, int attempts);
     public Staff getLoggedStaffInfo(String username);
     public Guest getLoggedGuestInfo(String username);
+    public void updateLastLogin(String username);
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package service;
+import javax.swing.JTable;
 import model.Guest;
 
 /**
@@ -12,4 +13,8 @@ import model.Guest;
  */
 public interface GuestServices { 
    public void newGuest (Guest guest);
+   public int getNoOfRegGuests();
+   public int getNoOfAvailGuests();
+   public void checkInOut(JTable table);
+   public void checkInOut(String username);
 }
