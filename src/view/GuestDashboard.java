@@ -59,6 +59,7 @@ public class GuestDashboard extends javax.swing.JFrame {
         refreshReq = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
+        deleteRequestBt = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         newNotice = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
@@ -165,6 +166,14 @@ public class GuestDashboard extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(requestTable);
 
+        deleteRequestBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteRequestBt.setText("DELETE SELECTED REQUEST");
+        deleteRequestBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRequestBtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -172,7 +181,9 @@ public class GuestDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(443, Short.MAX_VALUE)
+                        .addContainerGap(55, Short.MAX_VALUE)
+                        .addComponent(deleteRequestBt)
+                        .addGap(112, 112, 112)
                         .addComponent(refreshReq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(newRequest))
@@ -188,7 +199,8 @@ public class GuestDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newRequest)
-                    .addComponent(refreshReq))
+                    .addComponent(refreshReq)
+                    .addComponent(deleteRequestBt))
                 .addContainerGap())
         );
 
@@ -347,6 +359,12 @@ public class GuestDashboard extends javax.swing.JFrame {
        TableFunctions.RetrieveToTable(notifTable, "select notifTitle,date,description from notifications WHERE notifUsername = '"+SessionData.getLoggedUser()+"'");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void deleteRequestBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRequestBtActionPerformed
+        // TODO add your handling code here:
+        RequestServices deleteBT = new RequestServicesImpl();
+        deleteBT.deleteRequest(requestTable);
+    }//GEN-LAST:event_deleteRequestBtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,6 +418,7 @@ public class GuestDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RefreshNotif;
+    private javax.swing.JButton deleteRequestBt;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

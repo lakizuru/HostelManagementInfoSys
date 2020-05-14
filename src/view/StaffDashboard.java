@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import model.Notification;
 import model.Staff;
+import service.NotificationServices;
+import service.NotificationServicesImpl;
 import service.RequestServices;
 import service.RequestServicesImpl;
+import util.DateTime;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -53,6 +57,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         notifTable = new javax.swing.JTable();
         RefreshNotifBt = new javax.swing.JButton();
         newNotification = new javax.swing.JButton();
+        deleteNotifBt = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         acceptRequest = new javax.swing.JButton();
         refreshReq = new javax.swing.JButton();
@@ -73,7 +78,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGap(0, 824, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,6 +114,14 @@ public class StaffDashboard extends javax.swing.JFrame {
             }
         });
 
+        deleteNotifBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteNotifBt.setText("DELETE SELECTED NOTIFICATION");
+        deleteNotifBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNotifBtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -117,7 +130,9 @@ public class StaffDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 488, Short.MAX_VALUE)
+                        .addGap(0, 68, Short.MAX_VALUE)
+                        .addComponent(deleteNotifBt)
+                        .addGap(43, 43, 43)
                         .addComponent(RefreshNotifBt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(newNotification))
@@ -132,11 +147,12 @@ public class StaffDashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newNotification)
-                    .addComponent(RefreshNotifBt))
+                    .addComponent(RefreshNotifBt)
+                    .addComponent(deleteNotifBt))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("MESSAGES", jPanel3);
+        jTabbedPane1.addTab("SEND NOTIF", jPanel3);
 
         acceptRequest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         acceptRequest.setText("ACCEPT");
@@ -172,7 +188,7 @@ public class StaffDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 610, Short.MAX_VALUE)
+                        .addGap(0, 575, Short.MAX_VALUE)
                         .addComponent(refreshReq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(acceptRequest))
@@ -197,7 +213,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGap(0, 824, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +226,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGap(0, 824, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,6 +343,13 @@ public class StaffDashboard extends javax.swing.JFrame {
         TableFunctions.RetrieveToTable(notifTable, "select notifUsername,notifTitle,date,description from notifications WHERE senderUsername = '"+SessionData.getLoggedUser()+"'");
     }//GEN-LAST:event_RefreshNotifBtActionPerformed
 
+    private void deleteNotifBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNotifBtActionPerformed
+        // TODO add your handling code here:
+        
+        NotificationServices deleteBT = new NotificationServicesImpl();
+        deleteBT.deleteNotification(notifTable);
+    }//GEN-LAST:event_deleteNotifBtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,6 +397,7 @@ public class StaffDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RefreshNotifBt;
     private javax.swing.JButton acceptRequest;
+    private javax.swing.JButton deleteNotifBt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

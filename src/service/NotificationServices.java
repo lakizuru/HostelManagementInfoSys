@@ -15,4 +15,5 @@ import model.Notification;
 public interface NotificationServices {
     public void newNotification(Notification notif);
     public void seenNotification(JTable table);
+    public void deleteNotification(JTable table);
 }

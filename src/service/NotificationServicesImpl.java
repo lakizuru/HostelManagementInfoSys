@@ -94,6 +94,39 @@ public class NotificationServicesImpl implements NotificationServices {
         }catch(HeadlessException | ClassNotFoundException | SQLException e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
                 }
     }
+
+    @Override
+    public void deleteNotification(JTable table) {
+        try{String C1;
+        int i = table.getSelectedRow();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        C1 = model.getValueAt(i, 0).toString();
+        
+        if(table.getSelectedRow() != -1) {
+               
+               model.removeRow(table.getSelectedRow());
+               JOptionPane.showMessageDialog(null, "Notification deleted successfully");
+            }
+        
+        try{
+            
+           
+
+
+            Statement st = Database.connectDB().createStatement();
+            String query = "delete from notifications where notifTitle='"+C1+"';";
+            st.executeUpdate(query);
+            
+         
+         
+        }catch(ArrayIndexOutOfBoundsException e1){
+        
+        }
+        }catch(HeadlessException | ClassNotFoundException | SQLException e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
+                }
+    }
     
     
 }

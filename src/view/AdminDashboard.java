@@ -9,6 +9,8 @@ import service.GuestServices;
 import service.GuestServicesImpl;
 import service.NoticeServices;
 import service.NoticeServicesImpl;
+import service.StaffServices;
+import service.StaffServicesImpl;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -53,6 +55,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         GuestServices guests = new GuestServicesImpl();
         noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
         noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
+        
+        StaffServices staffService = new StaffServicesImpl();
+        noOfStaff.setText(String.valueOf(staffService.getNoOfStaff()));
     }
 
     /**
@@ -340,12 +345,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateGuestTable)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(checkInOutBtn)
                         .addComponent(addGuest)
-                        .addComponent(deleteGuest)))
+                        .addComponent(deleteGuest))
+                    .addComponent(updateGuestTable))
                 .addContainerGap())
         );
 
@@ -425,8 +430,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStaff)
                     .addComponent(addAdminModer1)
@@ -668,9 +673,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         GuestServices guestService = new GuestServicesImpl();
         guestService.checkInOut(username.getText());
 
-        GuestServices guests = new GuestServicesImpl();
-        noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
-        noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
+        noOfRegGuests.setText(String.valueOf(guestService.getNoOfRegGuests()));
+        noOfAvailGuest.setText(String.valueOf(guestService.getNoOfAvailGuests()));
 
     }//GEN-LAST:event_checkInOutBtnHomeActionPerformed
 

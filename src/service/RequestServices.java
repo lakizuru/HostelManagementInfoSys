@@ -16,5 +16,6 @@ public interface RequestServices {
     public String takeDepartment();
     public void acceptRequest(JTable table);
     public void newRequest(Request request);
+    public void deleteRequest(JTable table);
  
 }
