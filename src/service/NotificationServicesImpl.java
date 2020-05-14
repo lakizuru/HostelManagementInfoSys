@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.Notification;
 import util.Database;
 import util.DateTime;
@@ -57,6 +60,39 @@ public class NotificationServicesImpl implements NotificationServices {
         }
        
        
+    }
+
+    @Override
+    public void seenNotification(JTable table) {
+        try{String C1;
+        int i = table.getSelectedRow();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        C1 = model.getValueAt(i, 0).toString();
+        
+        if(table.getSelectedRow() != -1) {
+               
+               model.removeRow(table.getSelectedRow());
+               JOptionPane.showMessageDialog(null, "Notification seen successfully");
+            }
+        
+        try{
+            
+           
+
+
+            Statement st = Database.connectDB().createStatement();
+            String query = "update notifications set seen='seen'"+" where notifTitle='"+C1+"';";
+            st.executeUpdate(query);
+            
+         
+         
+        }catch(ArrayIndexOutOfBoundsException e1){
+        
+        }
+        }catch(HeadlessException | ClassNotFoundException | SQLException e){JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
+                }
     }
     
     
