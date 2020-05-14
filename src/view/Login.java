@@ -2,15 +2,15 @@ package view;
 
 import java.awt.Color;
 import util.*;
-import java.sql.*;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
-import model.LoggedUser;
-import model.User;
-import service.LoggedUserServices;
-import service.LoggedUserServicesImpl;
+import model.Guest;
+import model.Staff;
+import model.loggingUser;
+import service.LoggingUserServicesImpl;
+import service.LoggingUserServices;
 /**
  *
  * @author Semasinghe L.S. IT19051130
@@ -126,8 +126,8 @@ public class Login extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        LoggedUserServices user = new LoggedUserServicesImpl();
-        LoggedUser loggedUser = user.getLoggedUserInfo(username.getText());
+        LoggingUserServices user = new LoggingUserServicesImpl();
+        loggingUser loggedUser = user.getLoggingUserInfo(username.getText());
         
 
         if (loggedUser.isPass()) {
@@ -141,33 +141,40 @@ public class Login extends javax.swing.JFrame {
 
                         switch (loggedUser.getAccountType()) {
                         case "ADMIN": {
-                                SessionData.setLoggedAccountType("ADMIN");
-                                AdminDashboard frameAdmin = new AdminDashboard(loggedUser);
+                                LoggingUserServices logUser = new LoggingUserServicesImpl();
+                                Staff loggedAdmin = logUser.getLoggedStaffInfo(username.getText());
+                                                                
+                                
+                                AdminDashboard frameAdmin = new AdminDashboard(loggedAdmin);
                                 frameAdmin.setVisible(true);
                                 this.dispose();
 
                                 break;
                         }
                         case "MODER": {
-                                SessionData.setLoggedAccountType("MODER");
-                                ModerDashboard frameModer = new ModerDashboard();
+                                LoggingUserServices logUser = new LoggingUserServicesImpl();
+                                Staff loggedModer = logUser.getLoggedStaffInfo(username.getText());
+                                
+                                ModerDashboard frameModer = new ModerDashboard(loggedModer);
                                 frameModer.setVisible(true);
                                 this.dispose();
 
                                 break;
                         }
                         case "STAFF": {
-                                SessionData.setLoggedAccountType("STAFF");
-                                StaffDashboard frameStaff = new StaffDashboard();
+                                LoggingUserServices logUser = new LoggingUserServicesImpl();
+                                Staff loggedStaff = logUser.getLoggedStaffInfo(username.getText());
+                            
+                                StaffDashboard frameStaff = new StaffDashboard(loggedStaff);
                                 frameStaff.setVisible(true);
                                 this.dispose();
 
                                 break;
                         }
                         case "GUEST": {
-                            SessionData.setLoggedAccountType("GUEST");
-                            this.dispose();
-                            
+                                LoggingUserServices logUser = new LoggingUserServicesImpl();
+                                Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
+                                
                                 GuestDashboard frameGuest = new GuestDashboard();
                                 frameGuest.setVisible(true);
                                 this.dispose();

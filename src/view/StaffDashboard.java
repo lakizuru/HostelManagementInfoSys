@@ -3,14 +3,10 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.table.DefaultTableModel;
 import model.Staff;
 import service.RequestServices;
 import service.RequestServicesImpl;
-import service.StaffServices;
-import service.StaffServicesImpl;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -21,7 +17,7 @@ public class StaffDashboard extends javax.swing.JFrame {
     /**
      * Creates new form AdminDashboard
      */
-    public StaffDashboard() {
+    public StaffDashboard(Staff loggedStaff) {
         this.setUndecorated(true); //Removing title bar
         this.setResizable(false); //locking the size
         getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
@@ -29,7 +25,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Setting username to display
-        loggedUser.setText("Welcome, " + loggedUser.getName() + "!");
+        loggedUser.setText("Welcome, " + loggedStaff.getName() + "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -332,7 +328,7 @@ public class StaffDashboard extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(Staff loggedStaff) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -362,7 +358,7 @@ public class StaffDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StaffDashboard().setVisible(true);
+                new StaffDashboard(loggedStaff).setVisible(true);
                 
                 
             }

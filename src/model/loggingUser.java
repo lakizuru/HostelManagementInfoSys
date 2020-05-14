@@ -9,7 +9,7 @@ package model;
  *
  * @author Semasinghe L.S. IT19051130
  */
-public class LoggedUser {
+public class loggingUser {
     private boolean pass = false;
     private String username;
     private String password;
@@ -27,7 +27,7 @@ public class LoggedUser {
     
     
 
-    public LoggedUser() {
+    public loggingUser() {
     }
 
     public String getUsername() {

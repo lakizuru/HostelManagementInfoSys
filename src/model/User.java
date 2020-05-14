@@ -16,6 +16,11 @@ public class User {
     private String address;
     private boolean gender; // male - 1, female - 0
     
+    public User(String username, String name){
+        this.username = username;
+        this.name = name;
+    }
+    
     public User(){
         
     }

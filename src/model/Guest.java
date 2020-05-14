@@ -20,6 +20,9 @@ public class Guest extends User {
         this.emPhone = emPhone;
     }
 
+    public Guest() {
+    }
+
     public boolean isAge() {
             return age;
     }

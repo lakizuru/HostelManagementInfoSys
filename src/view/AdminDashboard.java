@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
-import model.LoggedUser;
+import model.Staff;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -16,7 +16,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form AdminDashboard
      */
-    public AdminDashboard(LoggedUser loggedUser) {
+    public AdminDashboard(Staff loggedAdmin) {
         this.setUndecorated(true); //Removing title bar
         this.setResizable(false); //locking the size
         getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
@@ -24,7 +24,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Setting username to display
-        loggedUserLbl.setText("Welcome, " + loggedUser.getUsername() + "!");
+        loggedUserLbl.setText("Welcome, " + loggedAdmin.getName() + "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -204,7 +204,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jScrollPane2.setViewportView(guestTable);
 
         updateGuestTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        updateGuestTable.setText("UPDATE TABLE");
+        updateGuestTable.setText("REFRESH");
         updateGuestTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateGuestTableActionPerformed(evt);
@@ -283,7 +283,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         updateStaffTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        updateStaffTable.setText("UPDATE TABLE");
+        updateStaffTable.setText("REFRESH");
         updateStaffTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateStaffTableActionPerformed(evt);
@@ -301,7 +301,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(updateStaffTable)
                         .addGap(26, 26, 26)
                         .addComponent(viewStaff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(addAdminModer1)
                         .addGap(18, 18, 18)
                         .addComponent(addStaff))
@@ -352,7 +352,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         updateRoomsTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        updateRoomsTable.setText("UPDATE TABLE");
+        updateRoomsTable.setText("REFRESH");
         updateRoomsTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateRoomsTableActionPerformed(evt);
@@ -369,7 +369,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(updateRoomsTable)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                         .addComponent(viewRoom)
                         .addGap(141, 141, 141)
                         .addComponent(newRoomButton)))
@@ -465,7 +465,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        SessionData.setLoggedUser(null);
         this.dispose();
         new Login().setVisible(true);
         
@@ -529,7 +528,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(LoggedUser loggedUser) {
+    public static void main(Staff loggedAdmin) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -556,7 +555,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminDashboard(loggedUser).setVisible(true);
+                new AdminDashboard(loggedAdmin).setVisible(true);
                 
                 
             }

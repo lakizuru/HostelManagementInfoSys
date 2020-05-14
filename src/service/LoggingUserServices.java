@@ -5,13 +5,17 @@
  */
 package service;
 
-import model.LoggedUser;
+import model.Guest;
+import model.Staff;
+import model.loggingUser;
 
 /**
  *
  * @author Semasinghe L.S. IT19051130
  */
-public interface LoggedUserServices {
-    public LoggedUser getLoggedUserInfo (String username);
+public interface LoggingUserServices {
+    public loggingUser getLoggingUserInfo(String username);
     public void failedLogin(String username, int attempts);
+    public Staff getLoggedStaffInfo(String username);
+    public Guest getLoggedGuestInfo(String username);
 }

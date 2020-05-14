@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Room;
+import model.Staff;
 import service.RoomServices;
 import service.RoomServicesImpl;
 import util.SessionData;
@@ -21,7 +22,7 @@ public class ModerDashboard extends javax.swing.JFrame {
     /**
      * Creates new form ModerDashboard
      */
-    public ModerDashboard() {
+    public ModerDashboard(Staff loggedModer) {
         this.setUndecorated(true); //Removing title bar
         this.setResizable(false); //locking the size
         getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)); //set custom border
@@ -30,19 +31,19 @@ public class ModerDashboard extends javax.swing.JFrame {
         
         //Generating tables
         TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
+        TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g"
                 + " WHERE u.username = g.username");
         
         //Setting username to display
-        loggedUser.setText("Welcome, " + SessionData.getLoggedUser() + "!");
+        loggedUser.setText("Welcome, " + loggedModer.getName()+ "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
-        RoomServices roomService = new RoomServicesImpl();
-        
-        displayRooms(roomService.getRooms(), roomTable);
+        //RoomServices roomService = new RoomServicesImpl();
+       
                 
         
     }
@@ -276,13 +277,17 @@ public class ModerDashboard extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -321,7 +326,7 @@ public class ModerDashboard extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(Staff loggedModer) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -348,7 +353,7 @@ public class ModerDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModerDashboard().setVisible(true);
+                new ModerDashboard(loggedModer).setVisible(true);
             }
         });
     }

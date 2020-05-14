@@ -335,7 +335,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="UPDATE TABLE"/>
+                    <Property name="text" type="java.lang.String" value="REFRESH"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateGuestTableActionPerformed"/>
@@ -362,7 +362,7 @@
                                   <Component id="updateStaffTable" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Component id="viewStaff" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                                  <EmptySpace pref="108" max="32767" attributes="0"/>
                                   <Component id="addAdminModer1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="addStaff" min="-2" max="-2" attributes="0"/>
@@ -481,7 +481,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="UPDATE TABLE"/>
+                    <Property name="text" type="java.lang.String" value="REFRESH"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateStaffTableActionPerformed"/>
@@ -507,7 +507,7 @@
                               <Component id="jScrollPane3" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="updateRoomsTable" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="204" max="32767" attributes="0"/>
+                                  <EmptySpace pref="256" max="32767" attributes="0"/>
                                   <Component id="viewRoom" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                                   <Component id="newRoomButton" min="-2" max="-2" attributes="0"/>
@@ -587,7 +587,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="UPDATE TABLE"/>
+                    <Property name="text" type="java.lang.String" value="REFRESH"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateRoomsTableActionPerformed"/>
