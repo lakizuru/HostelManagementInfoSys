@@ -177,7 +177,7 @@ public class Login extends javax.swing.JFrame {
                                 LoggingUserServices logUser = new LoggingUserServicesImpl();
                                 //Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
                                 
-                                SessionData.setLoggedUser(loggedGuest.getUsername());
+                                SessionData.setLoggedUser(username.getText());
                                 
                                 GuestDashboard frameGuest = new GuestDashboard();
                                 frameGuest.setVisible(true);
