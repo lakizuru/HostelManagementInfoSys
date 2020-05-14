@@ -24,7 +24,7 @@ public class GuestDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Setting username to display
-        loggedUser.setText("Welcome, " + loggedUser.getName() + "!");
+        loggedUser.setText("Welcome, " + SessionData.getLoggedUser() + "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
