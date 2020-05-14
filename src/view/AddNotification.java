@@ -6,6 +6,7 @@
 package view;
 
 import model.Notification;
+import model.Staff;
 import service.NotificationServices;
 import service.NotificationServicesImpl;
 import util.DateTime;
@@ -64,6 +65,11 @@ public class AddNotification extends javax.swing.JFrame {
         });
 
         exitBtn.setText("EXIT");
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +143,14 @@ public class AddNotification extends javax.swing.JFrame {
         NotificationServices SendBT = new NotificationServicesImpl();
         SendBT.newNotification(notif);
     }//GEN-LAST:event_sendBtnActionPerformed
+
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        // TODO add your handling code here:
+        Staff staff = new Staff();
+        this.dispose();
+        StaffDashboard frameStaff = new StaffDashboard(staff);
+                                frameStaff.setVisible(true);
+    }//GEN-LAST:event_exitBtnActionPerformed
 
     /**
      * @param args the command line arguments

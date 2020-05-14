@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
                         }
                         case "GUEST": {
                                 LoggingUserServices logUser = new LoggingUserServicesImpl();
-                                Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
+                                //Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
                                 
                                 SessionData.setLoggedUser(loggedGuest.getUsername());
                                 

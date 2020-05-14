@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import service.NotificationServices;
+import service.NotificationServicesImpl;
 import service.RequestServices;
 import service.RequestServicesImpl;
 import util.SessionData;
@@ -24,7 +26,7 @@ public class GuestDashboard extends javax.swing.JFrame {
         initComponents();
         
         //Setting username to display
-        loggedUser.setText("Welcome, " + loggedUser.getName() + "!");
+        loggedUser.setText("Welcome, " + SessionData.getLoggedUser() + "!");
         
         //Centralize the window in the display
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -51,6 +53,7 @@ public class GuestDashboard extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         notifTable = new javax.swing.JTable();
         RefreshNotif = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         newRequest = new javax.swing.JButton();
         refreshReq = new javax.swing.JButton();
@@ -100,6 +103,14 @@ public class GuestDashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setText("SEEN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -108,7 +119,10 @@ public class GuestDashboard extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RefreshNotif, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(RefreshNotif)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -117,7 +131,9 @@ public class GuestDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(RefreshNotif)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RefreshNotif)
+                    .addComponent(jButton1))
                 .addGap(22, 22, 22))
         );
 
@@ -323,6 +339,14 @@ public class GuestDashboard extends javax.swing.JFrame {
         TableFunctions.RetrieveToTable(notifTable, "select notifTitle,date,description from notifications WHERE notifUsername = '"+SessionData.getLoggedUser()+"'");
     }//GEN-LAST:event_RefreshNotifActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        NotificationServices thisUser = new NotificationServicesImpl();
+       thisUser.seenNotification(notifTable);
+       TableFunctions.ClearTable(notifTable);
+       TableFunctions.RetrieveToTable(notifTable, "select notifTitle,date,description from notifications WHERE notifUsername = '"+SessionData.getLoggedUser()+"'");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -376,6 +400,7 @@ public class GuestDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RefreshNotif;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
