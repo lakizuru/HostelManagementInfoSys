@@ -58,24 +58,21 @@ public class TableFunctions {
     
     public static void DeleteSelectedRow(JTable table){
         
-        try{String C1;
+        try{
+            String C1;
         int i = table.getSelectedRow();
         
         
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         C1 = model.getValueAt(i, 0).toString();
         
-        if(table.getSelectedRow() != -1) {
-               
-               model.removeRow(table.getSelectedRow());
-               JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
-            }
+        /*if(table.getSelectedRow() != -1) {
+        
+        model.removeRow(table.getSelectedRow());
+        JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+        }*/
         
         try{
-            
-           
-
-
             Statement st = Database.connectDB().createStatement();
             String query = "delete from guest where username='"+C1+"';";
             st.executeUpdate(query);

@@ -78,10 +78,16 @@ public class AdminDashboard extends javax.swing.JFrame {
         newNotice = new javax.swing.JButton();
         deleteNotice = new javax.swing.JButton();
         updateNotice = new javax.swing.JButton();
+        checkInOutBtnHome = new javax.swing.JButton();
+        username = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
         updateGuestTable = new javax.swing.JButton();
+        checkInOutBtn = new javax.swing.JButton();
+        deleteGuest = new javax.swing.JButton();
+        addGuest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -123,6 +129,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         noticeTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(noticeTable);
 
@@ -174,41 +182,63 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkInOutBtnHome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        checkInOutBtnHome.setText("CHECK-IN/OUT");
+        checkInOutBtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInOutBtnHomeActionPerformed(evt);
+            }
+        });
+
+        username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Search by Username");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(updateNotice)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteNotice)
+                        .addGap(174, 174, 174)
+                        .addComponent(newNotice))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(noOfRegGuests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1))
+                        .addGap(74, 74, 74)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(noOfAvailGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(noOfStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(noOfRegGuests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(74, 74, 74)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(noOfAvailGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(noOfStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(80, 80, 80))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(updateNotice)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deleteNotice)
-                .addGap(174, 174, 174)
-                .addComponent(newNotice)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkInOutBtnHome)
+                .addGap(177, 177, 177))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -218,14 +248,19 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(noOfRegGuests)
                     .addComponent(noOfAvailGuest)
                     .addComponent(noOfStaff))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkInOutBtnHome)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newNotice)
                     .addComponent(deleteNotice)
                     .addComponent(updateNotice))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("HOME", jPanel2);
@@ -257,6 +292,30 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkInOutBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        checkInOutBtn.setText("CHECK-IN/OUT");
+        checkInOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInOutBtnActionPerformed(evt);
+            }
+        });
+
+        deleteGuest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteGuest.setText("DELETE GUEST");
+        deleteGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteGuestActionPerformed(evt);
+            }
+        });
+
+        addGuest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        addGuest.setText("NEW GUEST");
+        addGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGuestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -267,16 +326,26 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(updateGuestTable)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(73, 73, 73)
+                        .addComponent(checkInOutBtn)
+                        .addGap(59, 59, 59)
+                        .addComponent(deleteGuest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addGuest)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updateGuestTable)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateGuestTable)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkInOutBtn)
+                        .addComponent(addGuest)
+                        .addComponent(deleteGuest)))
                 .addContainerGap())
         );
 
@@ -423,7 +492,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -594,6 +663,37 @@ public class AdminDashboard extends javax.swing.JFrame {
         TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
     }//GEN-LAST:event_deleteRoomActionPerformed
 
+    private void checkInOutBtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInOutBtnHomeActionPerformed
+        // TODO add your handling code here:
+        GuestServices guestService = new GuestServicesImpl();
+        guestService.checkInOut(username.getText());
+
+        GuestServices guests = new GuestServicesImpl();
+        noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
+        noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
+
+    }//GEN-LAST:event_checkInOutBtnHomeActionPerformed
+
+    private void checkInOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInOutBtnActionPerformed
+        // TODO add your handling code here:
+        GuestServices guestService = new GuestServicesImpl();
+        guestService.checkInOut(guestTable);
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+    }//GEN-LAST:event_checkInOutBtnActionPerformed
+
+    private void deleteGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGuestActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.DeleteSelectedRow(guestTable);
+        TableFunctions.ClearTable(guestTable);
+        TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
+    }//GEN-LAST:event_deleteGuestActionPerformed
+
+    private void addGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGuestActionPerformed
+        // TODO add your handling code here:
+        new AddGuest().setVisible(true);
+    }//GEN-LAST:event_addGuestActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -649,7 +749,11 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAdminModer1;
+    private javax.swing.JButton addGuest;
     private javax.swing.JButton addStaff;
+    private javax.swing.JButton checkInOutBtn;
+    private javax.swing.JButton checkInOutBtnHome;
+    private javax.swing.JButton deleteGuest;
     private javax.swing.JButton deleteNotice;
     private javax.swing.JButton deleteRoom;
     private javax.swing.JButton deleteStaff;
@@ -657,6 +761,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -682,5 +787,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton updateNotice;
     private javax.swing.JButton updateRoomsTable;
     private javax.swing.JButton updateStaffTable;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

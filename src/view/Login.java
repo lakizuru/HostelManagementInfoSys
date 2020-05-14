@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
         exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Username");
@@ -133,7 +134,7 @@ public class Login extends javax.swing.JFrame {
         if (loggedUser.isPass()) {
 
                 if (loggedUser.getPassword().equals(String.valueOf(password.getPassword()))) {
-                        //SessionData.setLoggedUser(loggedUser.getUsername());
+                        SessionData.setLoggedUser(loggedUser.getUsername());
 
                         JOptionPane.showMessageDialog(this, loggedUser.getAttempts() + 
                                 " unsuccessful login attempt(s) since last successful login at " 
@@ -153,16 +154,7 @@ public class Login extends javax.swing.JFrame {
 
                                 break;
                         }
-                        case "MODER": {
-                                LoggingUserServices logUser = new LoggingUserServicesImpl();
-                                Staff loggedModer = logUser.getLoggedStaffInfo(username.getText());
-                                
-                                ModerDashboard frameModer = new ModerDashboard(loggedModer);
-                                frameModer.setVisible(true);
-                                this.dispose();
-
-                                break;
-                        }
+                        
                         case "STAFF": {
                                 LoggingUserServices logUser = new LoggingUserServicesImpl();
                                 Staff loggedStaff = logUser.getLoggedStaffInfo(username.getText());
@@ -175,7 +167,7 @@ public class Login extends javax.swing.JFrame {
                         }
                         case "GUEST": {
                                 LoggingUserServices logUser = new LoggingUserServicesImpl();
-                                //Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
+                                Guest loggedGuest = logUser.getLoggedGuestInfo(username.getText());
                                 
                                 SessionData.setLoggedUser(loggedGuest.getUsername());
                                 

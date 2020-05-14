@@ -168,10 +168,10 @@ public class GuestServicesImpl implements GuestServices {
                 }
                 
                 statement.executeUpdate(queryGuestAvail);
-                JOptionPane.showMessageDialog(null, "Success!", "Successfully changed the Availability status", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Successfully changed the Availability status", "Success!", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Invalid Username", "Username you have entered is not found in the database", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Username you have entered is not found in the database", "Invalid Username", JOptionPane.ERROR_MESSAGE);
                 }
                
                 //Closing DB Connection
