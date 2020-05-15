@@ -60,7 +60,7 @@ public class AddNotification extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SEND MESSEGE");
+        jLabel1.setText("SEND NOTIFICATION");
 
         guestTitleL.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         guestTitleL.setText("Title :");
