@@ -116,7 +116,7 @@ public class NotificationServicesImpl implements NotificationServices {
 
 
             Statement st = Database.connectDB().createStatement();
-            String query = "delete from notifications where notifTitle='"+C1+"';";
+            String query = "delete from notifications where notifUsername='"+C1+"';";
             st.executeUpdate(query);
             
          
