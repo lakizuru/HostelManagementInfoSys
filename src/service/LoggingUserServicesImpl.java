@@ -13,15 +13,15 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.Guest;
 import model.Staff;
-import model.loggingUser;
+import model.LoggingUser;
 import util.Database;
 import util.DateTime;
 
 
 public class LoggingUserServicesImpl implements LoggingUserServices {
 
-    public loggingUser getLoggingUserInfo(String username) {
-        loggingUser loggingUser = new loggingUser();
+    public LoggingUser getLoggingUserInfo(String username) {
+        LoggingUser loggingUser = new LoggingUser();
         try {
                 Class.forName(Database.dbDriver);
                 Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);

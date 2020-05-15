@@ -7,14 +7,14 @@ package service;
 
 import model.Guest;
 import model.Staff;
-import model.loggingUser;
+import model.LoggingUser;
 
 /**
  *
  * @author Semasinghe L.S. IT19051130
  */
 public interface LoggingUserServices {
-    public loggingUser getLoggingUserInfo(String username);
+    public LoggingUser getLoggingUserInfo(String username);
     public void failedLogin(String username, int attempts);
     public Staff getLoggedStaffInfo(String username);
     public Guest getLoggedGuestInfo(String username);

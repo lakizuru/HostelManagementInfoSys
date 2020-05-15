@@ -2,7 +2,7 @@ package util;
 
 /**
  *
- * @author Semasinghe L.S. IT19051130
+ * @author Perera A.A.K.B IT19080154
  */
 public class SessionData {
     private static String loggedUser;

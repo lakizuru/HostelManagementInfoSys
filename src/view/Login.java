@@ -8,7 +8,7 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import model.Guest;
 import model.Staff;
-import model.loggingUser;
+import model.LoggingUser;
 import service.LoggingUserServicesImpl;
 import service.LoggingUserServices;
 /**
@@ -150,7 +150,7 @@ public class Login extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         LoggingUserServices user = new LoggingUserServicesImpl();
-        loggingUser loggedUser = user.getLoggingUserInfo(username.getText());
+        LoggingUser loggedUser = user.getLoggingUserInfo(username.getText());
         
 
         if (loggedUser.isPass()) {
