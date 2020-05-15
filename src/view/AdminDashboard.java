@@ -681,6 +681,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         NoticeServices noticeService = new NoticeServicesImpl();
         noticeService.DeleteSelectedRow(noticeTable);
+        
+        TableFunctions.ClearTable(noticeTable);
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
     }//GEN-LAST:event_deleteNoticeActionPerformed
 
     private void updateNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNoticeActionPerformed
