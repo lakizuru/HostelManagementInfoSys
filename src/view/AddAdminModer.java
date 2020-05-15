@@ -7,6 +7,8 @@ import javax.swing.BorderFactory;
 import util.Validate;
 import javax.swing.JOptionPane;
 import model.Staff;
+import service.StaffServices;
+import service.StaffServicesImpl;
 import service.UserServices;
 import service.UserServicesImpl;
 /**
@@ -320,9 +322,6 @@ public class AddAdminModer extends javax.swing.JFrame {
                                                                 gender = false;
                                                         }
 
-                                                            accessLevel = "ADMIN";
-                                                        
-
                                                         //Creating staff object
                                                         Staff staff = new Staff(username.getText(), name.getText(), nic.getText(), phone.getText(), address.getText(), gender,
                                                                 Integer.parseInt(salary.getText()), "Admin" );
@@ -330,8 +329,10 @@ public class AddAdminModer extends javax.swing.JFrame {
                                                         //creating a DB entry for the new staff
                                                         UserServices userService = new UserServicesImpl();
                                                        
-                                                        userService.newAccount(username.getText(), pass1, accessLevel);
-                                                        userService.newUser(staff);
+                                                        userService.newAccount(username.getText(), pass1, "ADMIN");
+                                                        
+                                                        StaffServices staffService = new StaffServicesImpl();
+                                                        staffService.newStaff(staff);
 
                                                         this.dispose(); // Closes JFrame
                                                 }

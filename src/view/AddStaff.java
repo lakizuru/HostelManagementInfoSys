@@ -46,6 +46,7 @@ public class AddStaff extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        genderGroup = new javax.swing.ButtonGroup();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -103,9 +104,11 @@ public class AddStaff extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
+        genderGroup.add(male);
         male.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         male.setText("Male");
 
+        genderGroup.add(female);
         female.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         female.setText("Female");
         female.addActionListener(new java.awt.event.ActionListener() {
@@ -420,6 +423,7 @@ public class AddStaff extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox<String> dept;
     private javax.swing.JRadioButton female;
+    private javax.swing.ButtonGroup genderGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
