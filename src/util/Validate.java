@@ -102,14 +102,20 @@ public class Validate {
 				//checks whether name has anything other than digits and V,v
 				Pattern p = Pattern.compile("[^0-9]");
 				Matcher m = p.matcher(NIC.substring(0, 8));
-				valid = !(m.find());
+                                
+                                if (!(m.find())){
+                                    valid = Validate.nicDuplicated(NIC);
+                                }
 			}
 		}
 		else if(NIC.length() == 12) {
 				//checks whether name has anything other than digits
 				Pattern p = Pattern.compile("[^0-9]");
 				Matcher m = p.matcher(NIC);
-				valid = !(m.find());
+				
+                                if (!(m.find())){
+                                    valid = Validate.nicDuplicated(NIC);
+                                }
 			
 		}
 			return valid;
@@ -150,5 +156,37 @@ public class Validate {
 		boolean valid = !(m.find());
 		return valid;
 	}
+        
+        private static boolean nicDuplicated(String nic){
+            boolean valid = false;
+            try {
+                    Class.forName(Database.dbDriver);
+                    Connection connection = DriverManager.getConnection(Database.dbURL, Database.dbUsername, Database.dbPassword);
+                    Statement statement = connection.createStatement();
+
+                    String query = "SELECT * FROM user WHERE nic = '" + nic + "'";
+
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    // check whether similar username exists
+                    if (resultSet.next()) {
+                            valid = false;
+                    }
+                    else
+                    {
+                            valid = true;
+                    }
+
+                    //Closing DB Connection
+                    connection.close();
+
+            }
+            catch (ClassNotFoundException | SQLException dbError) {
+                    JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
+                    System.exit(-1);
+            }
+            return valid;
+        }
 
 }
+

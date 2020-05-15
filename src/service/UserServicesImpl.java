@@ -97,7 +97,7 @@ public class UserServicesImpl implements UserServices {
         
         try{
             Statement st = Database.connectDB().createStatement();
-            String query = "delete from user where username = '" + username + "';";
+            String query = "delete from login where username = '" + username + "';";
             st.executeUpdate(query);
 
         }

@@ -33,13 +33,14 @@ public class LoggingUserServicesImpl implements LoggingUserServices {
                 
                 if(rsUsername.next()){
                     loggingUser.setPass(true);
+                    loggingUser.setUsername(username);
+                    loggingUser.setPassword(rsUsername.getString("password"));
+                    loggingUser.setAccountType(rsUsername.getString("accountType"));
+                    loggingUser.setLastLogin(rsUsername.getString("lastLogin"));
+                    loggingUser.setAttempts(rsUsername.getInt("attempts"));
                 }
 
-                loggingUser.setUsername(username);
-                loggingUser.setPassword(rsUsername.getString("password"));
-                loggingUser.setAccountType(rsUsername.getString("accountType"));
-                loggingUser.setLastLogin(rsUsername.getString("lastLogin"));
-                loggingUser.setAttempts(rsUsername.getInt("attempts"));
+                
                
                 //Closing DB Connection
                 connection.close();

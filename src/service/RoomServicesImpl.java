@@ -60,12 +60,15 @@ public class RoomServicesImpl implements RoomServices {
 			Statement statement = connection.createStatement();
 			
 			//finds a room in the specified block which is not full
-			String queryVacantRooms = "SELECT roomNumber FROM room WHERE roomNumber LIKE '" + block + "___' AND occupied < capasity";
+			String queryVacantRooms = "SELECT roomNumber, occupied FROM room WHERE roomNumber LIKE '" + block + "___' AND occupied < capasity";
 			
 			ResultSet rsVacantRooms = statement.executeQuery(queryVacantRooms);
 			
 			if (rsVacantRooms.next()) {
-				roomNumber = rsVacantRooms.getString("roomNumber");				
+				roomNumber = rsVacantRooms.getString("roomNumber");
+                                int occupied  = rsVacantRooms.getInt("occupied");
+                                queryVacantRooms = "UPDATE `oop`.`room` SET `occupied` = '" + (occupied+1) + "' WHERE `roomNumber` = '" + roomNumber + "';";
+                                statement.executeUpdate(queryVacantRooms);
 			}
 			
 			//Closing DB Connection

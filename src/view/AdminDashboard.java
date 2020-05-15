@@ -2,8 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.table.TableColumnModel;
 import model.Staff;
 import service.GuestServices;
 import service.GuestServicesImpl;
@@ -15,7 +17,6 @@ import service.StaffServices;
 import service.StaffServicesImpl;
 import service.UserServices;
 import service.UserServicesImpl;
-import util.SessionData;
 import util.TableFunctions;
 /**
  *
@@ -33,8 +34,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         
         initComponents();
         
-        noticeTable.setRowHeight(30);
-        noticeTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        noticeViewTable.setRowHeight(30);
+        noticeViewTable.getColumnModel().getColumn(0).setPreferredWidth(80);
         
         //Setting username to display
         loggedUserLbl.setText("Welcome, " + loggedAdmin.getName() + "!");
@@ -44,18 +45,23 @@ public class AdminDashboard extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
         //Generating tables
+
+        TableColumnModel noticeViewColModel = noticeViewTable.getColumnModel();
+        noticeViewColModel.getColumn(0).setPreferredWidth(120);
+        TableFunctions.RetrieveToTable(noticeViewTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+        
+        TableColumnModel noticeColModel = noticeTable.getColumnModel();
+        noticeColModel.getColumn(0).setPreferredWidth(120);
+        noticeColModel.getColumn(2).setPreferredWidth(100);
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message, recipients FROM notice ORDER BY dateTime DESC");     
+        noticeTable.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+        
         TableFunctions.RetrieveToTable(staffTable, "SELECT u.username, u.name, u.phone, s.department, s.salary FROM user as u, staff as s WHERE u.username = s.username");
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
         TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
         
         
-        /*Thread updater = new Thread((Runnable) new UpdateAdmin(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username",
-        staffTable, "SELECT u.username, u.name, u.phone, s.department, s.salary FROM user as u, staff as s WHERE u.username = s.username",
-        roomTable, "SELECT * FROM room", noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC;"));
-        
-        updater.start();*/
-        
+        //updating dashboard numbers
         GuestServices guests = new GuestServicesImpl();
         noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
         noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
@@ -77,15 +83,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        noticeTable = new javax.swing.JTable();
+        noticeViewTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         noOfRegGuests = new javax.swing.JLabel();
         noOfAvailGuest = new javax.swing.JLabel();
         noOfStaff = new javax.swing.JLabel();
-        newNotice = new javax.swing.JButton();
-        deleteNotice = new javax.swing.JButton();
         updateNotice = new javax.swing.JButton();
         checkInOutBtnHome = new javax.swing.JButton();
         username = new javax.swing.JTextField();
@@ -110,6 +114,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTable = new javax.swing.JTable();
         updateRoomsTable = new javax.swing.JButton();
         deleteRoom = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        noticeTable = new javax.swing.JTable();
+        RefreshNotif = new javax.swing.JButton();
+        deleteNotice = new javax.swing.JButton();
+        newNotice = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         logoutBtn = new javax.swing.JButton();
         loggedUserLbl = new javax.swing.JLabel();
         minimize = new javax.swing.JButton();
@@ -124,8 +136,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTabbedPane1.setToolTipText("Home");
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 
-        noticeTable.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        noticeTable.setModel(new javax.swing.table.DefaultTableModel(
+        noticeViewTable.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        noticeViewTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -141,11 +153,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        noticeTable.setShowGrid(false);
-        noticeTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(noticeTable);
+        noticeViewTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        noticeViewTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        noticeViewTable.setShowGrid(false);
+        noticeViewTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(noticeViewTable);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,22 +182,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         noOfStaff.setFont(new java.awt.Font("Tahoma", 1, 75)); // NOI18N
         noOfStaff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         noOfStaff.setText("0");
-
-        newNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        newNotice.setText("NEW NOTICE");
-        newNotice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newNoticeActionPerformed(evt);
-            }
-        });
-
-        deleteNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        deleteNotice.setText("DELETE NOTICE");
-        deleteNotice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteNoticeActionPerformed(evt);
-            }
-        });
 
         updateNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         updateNotice.setText("REFRESH");
@@ -220,10 +216,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(updateNotice)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteNotice)
-                        .addGap(174, 174, 174)
-                        .addComponent(newNotice))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -269,10 +262,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newNotice)
-                    .addComponent(deleteNotice)
-                    .addComponent(updateNotice))
+                .addComponent(updateNotice)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -525,6 +515,93 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/images/room12.png")), jPanel5); // NOI18N
 
+        noticeTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        noticeTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Notice", "123456789 (Recipients)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        noticeTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(noticeTable);
+
+        RefreshNotif.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        RefreshNotif.setText("REFRESH");
+        RefreshNotif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshNotifActionPerformed(evt);
+            }
+        });
+
+        deleteNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deleteNotice.setText("DELETE NOTICE");
+        deleteNotice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNoticeActionPerformed(evt);
+            }
+        });
+
+        newNotice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        newNotice.setText("NEW NOTICE");
+        newNotice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newNoticeActionPerformed(evt);
+            }
+        });
+
+        jScrollPane6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("RECIPIENTS TYPES - [1] [2] [3] [4] [5] [6] [7] [8] [9]\n1: Block M\t2: Block W\t3: Block B\t4: Block G\n5: Administration\t6: Kitchen\t7: Laundry\t8: Cleaning\t9: Technical");
+        jScrollPane6.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(RefreshNotif)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                        .addComponent(deleteNotice)
+                        .addGap(206, 206, 206)
+                        .addComponent(newNotice))
+                    .addComponent(jScrollPane6))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newNotice)
+                    .addComponent(deleteNotice)
+                    .addComponent(RefreshNotif))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/images/NOTIFICATIONS4321.png")), jPanel7); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -682,8 +759,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         NoticeServices noticeService = new NoticeServicesImpl();
         noticeService.DeleteSelectedRow(noticeTable);
         
+        //updating notice view table
+        TableFunctions.ClearTable(noticeViewTable);
+        TableFunctions.RetrieveToTable(noticeViewTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+        
+        //updating notice table
         TableFunctions.ClearTable(noticeTable);
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message, recipients FROM notice ORDER BY dateTime DESC");
     }//GEN-LAST:event_deleteNoticeActionPerformed
 
     private void updateNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNoticeActionPerformed
@@ -692,8 +774,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         noOfRegGuests.setText(String.valueOf(guests.getNoOfRegGuests()));
         noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
         
-        TableFunctions.ClearTable(noticeTable);
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+        StaffServices staffService = new StaffServicesImpl();
+        noOfStaff.setText(String.valueOf(staffService.getNoOfStaff()));
+        
+        TableFunctions.ClearTable(noticeViewTable);
+        TableFunctions.RetrieveToTable(noticeViewTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
     }//GEN-LAST:event_updateNoticeActionPerformed
 
     private void deleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStaffActionPerformed
@@ -745,6 +830,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         new AddGuest().setVisible(true);
     }//GEN-LAST:event_addGuestActionPerformed
+
+    private void RefreshNotifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshNotifActionPerformed
+        // TODO add your handling code here:
+        TableFunctions.ClearTable(noticeViewTable);
+        TableFunctions.RetrieveToTable(noticeViewTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+    }//GEN-LAST:event_RefreshNotifActionPerformed
 
     /**
      * @param args the command line arguments
@@ -800,6 +891,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RefreshNotif;
     private javax.swing.JButton addAdminModer1;
     private javax.swing.JButton addGuest;
     private javax.swing.JButton addStaff;
@@ -821,11 +913,15 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel loggedUserLbl;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton minimize;
@@ -835,6 +931,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel noOfRegGuests;
     private javax.swing.JLabel noOfStaff;
     private javax.swing.JTable noticeTable;
+    private javax.swing.JTable noticeViewTable;
     private javax.swing.JTable roomTable;
     private javax.swing.JTable staffTable;
     private javax.swing.JButton updateGuestTable;
