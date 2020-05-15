@@ -135,7 +135,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
         noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        noticeTable.setShowGrid(false);
         noticeTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(noticeTable);
 
