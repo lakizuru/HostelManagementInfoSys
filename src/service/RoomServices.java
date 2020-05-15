@@ -6,6 +6,7 @@
 package service;
 
 import java.util.ArrayList;
+import javax.swing.JTable;
 import model.Room;
 
 /**
@@ -14,6 +15,7 @@ import model.Room;
  */
 public interface RoomServices {
     public void AddRoom(Room room);
+    public void DeleteSelectedRow(JTable table);
 
     public ArrayList<Room> getRooms ();
 }

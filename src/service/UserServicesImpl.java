@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.User;
 import util.Database;
 import util.DateTime;
@@ -85,6 +87,30 @@ public class UserServicesImpl implements UserServices {
                 System.exit(-1);
         }
     }
+    
+    public void DeleteSelectedRow(JTable table) {
+        int i = table.getSelectedRow();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String username = model.getValueAt(i, 0).toString();
+        
+        try{
+            Statement st = Database.connectDB().createStatement();
+            String query = "delete from user where username = '" + username + "';";
+            st.executeUpdate(query);
+
+        }
+        catch(ArrayIndexOutOfBoundsException e1)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row. \n" , "Please Select a Row!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+        catch(HeadlessException | ClassNotFoundException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);        
+        }
+}
         
     
 }

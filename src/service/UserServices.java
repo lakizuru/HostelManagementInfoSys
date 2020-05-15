@@ -5,6 +5,7 @@
  */
 package service;
 
+import javax.swing.JTable;
 import model.User;
 
 /**
@@ -15,4 +16,6 @@ public interface UserServices {
     public void newAccount(String username, String password, String accountType);
     
     public void newUser (User user);
+    
+    public void DeleteSelectedRow(JTable table);
 }

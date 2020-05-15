@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import util.Database;
 import model.Room;
 
@@ -104,6 +107,30 @@ public class RoomServicesImpl implements RoomServices {
 			System.exit(-1);
 		}
         }
+        
+        public void DeleteSelectedRow(JTable table) {
+        int i = table.getSelectedRow();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String roomNumber = model.getValueAt(i, 0).toString();
+        
+        try{
+            Statement st = Database.connectDB().createStatement();
+            String query = "delete from room where roomNumber = '" + roomNumber + "';";
+            st.executeUpdate(query);
+
+        }
+        catch(ArrayIndexOutOfBoundsException e1)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row. \n" , "Please Select a Row!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+        catch(HeadlessException | ClassNotFoundException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);        
+        }
+}
         
         public ArrayList<Room> getRooms (){
             ArrayList <Room> roomsList = new ArrayList<>();

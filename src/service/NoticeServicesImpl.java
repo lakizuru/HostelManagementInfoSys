@@ -51,5 +51,26 @@ public class NoticeServicesImpl implements NoticeServices {
                 System.exit(-1);
         }
     }
+    public void DeleteSelectedRow(JTable table){
+        
+        int i = table.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String dateTime = model.getValueAt(i, 0).toString();
+        
+        try{
+            Statement st = Database.connectDB().createStatement();
+            String query = "delete from notice where dateTime = '" + dateTime + "';";
+            st.executeUpdate(query);
+         
+        }catch(ArrayIndexOutOfBoundsException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row. \n" , "Please Select a Row!", JOptionPane.ERROR_MESSAGE);
+                }
+        catch(ClassNotFoundException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        }
     
 }

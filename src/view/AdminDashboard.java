@@ -9,8 +9,12 @@ import service.GuestServices;
 import service.GuestServicesImpl;
 import service.NoticeServices;
 import service.NoticeServicesImpl;
+import service.RoomServices;
+import service.RoomServicesImpl;
 import service.StaffServices;
 import service.StaffServicesImpl;
+import service.UserServices;
+import service.UserServicesImpl;
 import util.SessionData;
 import util.TableFunctions;
 /**
@@ -109,8 +113,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         loggedUserLbl = new javax.swing.JLabel();
         minimize = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 0, 0));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
@@ -134,6 +140,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         noticeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         noticeTable.setShowGrid(false);
         noticeTable.getTableHeader().setReorderingAllowed(false);
@@ -545,6 +552,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/LogoForLogin.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -558,21 +567,25 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(loggedUserLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logoutBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(minimize)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(180, 180, 180)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(minimize, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(minimize)
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoutBtn)
-                    .addComponent(loggedUserLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(minimize)
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(logoutBtn)
+                            .addComponent(loggedUserLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -637,11 +650,12 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void deleteNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNoticeActionPerformed
         // TODO add your handling code here:
-        TableFunctions.DeleteSelectedRow(noticeTable);
+        NoticeServices noticeService = new NoticeServicesImpl();
+        noticeService.DeleteSelectedRow(noticeTable);
+        
         TableFunctions.ClearTable(noticeTable);
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients = '____1____' ORDER BY dateTime DESC;");
         
-        
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients = '____1____' ORDER BY dateTime DESC;"); 
     }//GEN-LAST:event_deleteNoticeActionPerformed
 
     private void updateNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNoticeActionPerformed
@@ -656,14 +670,18 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void deleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStaffActionPerformed
         // TODO add your handling code here:
-        TableFunctions.DeleteSelectedRow(staffTable);
+        UserServices userService = new UserServicesImpl();
+        userService.DeleteSelectedRow(staffTable);
+        
         TableFunctions.ClearTable(staffTable);
         TableFunctions.RetrieveToTable(staffTable, "SELECT u.username, u.name, u.phone, s.department, s.salary FROM user as u, staff as s WHERE u.username = s.username");
     }//GEN-LAST:event_deleteStaffActionPerformed
 
     private void deleteRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRoomActionPerformed
         // TODO add your handling code here:
-        TableFunctions.DeleteSelectedRow(roomTable);
+        RoomServices roomService = new RoomServicesImpl();
+        roomService.DeleteSelectedRow(roomTable);
+        
         TableFunctions.ClearTable(roomTable);
         TableFunctions.RetrieveToTable(roomTable, "SELECT * FROM room");
     }//GEN-LAST:event_deleteRoomActionPerformed
@@ -688,7 +706,9 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void deleteGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGuestActionPerformed
         // TODO add your handling code here:
-        TableFunctions.DeleteSelectedRow(guestTable);
+        UserServices userService = new UserServicesImpl();
+        userService.DeleteSelectedRow(guestTable);
+        
         TableFunctions.ClearTable(guestTable);
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
     }//GEN-LAST:event_deleteGuestActionPerformed
@@ -766,6 +786,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -13,5 +13,6 @@ import model.Notice;
  */
 public interface NoticeServices {
     public void newNotice(Notice notice);
+    public void DeleteSelectedRow(JTable table);
     
 }

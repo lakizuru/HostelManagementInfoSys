@@ -55,6 +55,11 @@ public class AddRoom extends javax.swing.JFrame {
 
         block.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         block.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "W", "B", "G" }));
+        block.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blockActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Room#");
@@ -198,6 +203,10 @@ public class AddRoom extends javax.swing.JFrame {
     private void capasityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capasityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_capasityActionPerformed
+
+    private void blockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_blockActionPerformed
 
     /**
      * @param args the command line arguments

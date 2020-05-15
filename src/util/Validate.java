@@ -121,7 +121,7 @@ public class Validate {
 		
 		//checks number of characters
 		if (roomNo.length() == 4) {
-			if (roomNo.toCharArray()[0] == 'L' || roomNo.toCharArray()[0] == 'G' || roomNo.toCharArray()[0] == 'M' || roomNo.toCharArray()[0] == 'F') {
+			if (roomNo.toCharArray()[0] == 'W' || roomNo.toCharArray()[0] == 'G' || roomNo.toCharArray()[0] == 'M' || roomNo.toCharArray()[0] == 'B') {
 				//checks whether roomNo characters 2,3,4 hav anything other than digits
 				Pattern p = Pattern.compile("[^0-9]");
 				Matcher m = p.matcher(roomNo.substring(1));
