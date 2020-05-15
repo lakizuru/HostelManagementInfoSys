@@ -115,7 +115,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         minimize = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 0, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
@@ -462,9 +462,17 @@ public class AdminDashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Room#", "Rental Fee", "Capasity", "Occupied"
+                "Room#", "Rental Fee", "Occupied", "Capasity"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(roomTable);
 
         updateRoomsTable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -634,6 +642,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void newNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNoticeActionPerformed
         // TODO add your handling code here:
         new AddNotice().setVisible(true);
+        
     }//GEN-LAST:event_newNoticeActionPerformed
 
     private void logoutBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseEntered
@@ -644,10 +653,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         NoticeServices noticeService = new NoticeServicesImpl();
         noticeService.DeleteSelectedRow(noticeTable);
-        
-        TableFunctions.ClearTable(noticeTable);
-        
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients = '____1____' ORDER BY dateTime DESC;"); 
     }//GEN-LAST:event_deleteNoticeActionPerformed
 
     private void updateNoticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNoticeActionPerformed
@@ -657,7 +662,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         noOfAvailGuest.setText(String.valueOf(guests.getNoOfAvailGuests()));
         
         TableFunctions.ClearTable(noticeTable);
-        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients = '____1____' ORDER BY dateTime DESC;");
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
     }//GEN-LAST:event_updateNoticeActionPerformed
 
     private void deleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStaffActionPerformed

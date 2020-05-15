@@ -8,10 +8,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.JTable;
 import util.DateTime;
 import model.Notice;
 import service.NoticeServices;
 import service.NoticeServicesImpl;
+import util.TableFunctions;
 
 /**
  *
@@ -278,6 +280,8 @@ public class AddNotice extends javax.swing.JFrame {
             NoticeServices noticeService = new NoticeServicesImpl();
             noticeService.newNotice(notice);
             
+            
+            
             this.dispose();
         }
 
@@ -292,7 +296,7 @@ public class AddNotice extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -320,6 +324,10 @@ public class AddNotice extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddNotice().setVisible(true);
+                
+                
+                TableFunctions.ClearTable(table);
+                TableFunctions.RetrieveToTable(table, query);
             }
         });
     }
