@@ -47,6 +47,7 @@ public class AddAdminModer extends javax.swing.JFrame {
     private void initComponents() {
 
         accessLevelGroup = new javax.swing.ButtonGroup();
+        genderBtn = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
@@ -119,9 +120,11 @@ public class AddAdminModer extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
+        genderBtn.add(male);
         male.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         male.setText("Male");
 
+        genderBtn.add(female);
         female.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         female.setText("Female");
         female.addActionListener(new java.awt.event.ActionListener() {
@@ -412,6 +415,7 @@ public class AddAdminModer extends javax.swing.JFrame {
     private javax.swing.JTextField address;
     private javax.swing.JButton cancelButton;
     private javax.swing.JRadioButton female;
+    private javax.swing.ButtonGroup genderBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

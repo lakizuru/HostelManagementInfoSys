@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -182,5 +183,50 @@ public class GuestServicesImpl implements GuestServices {
                 JOptionPane.showMessageDialog(null, dbError, "Database Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
         }
+    }
+    
+    public void DeleteSelectedRow(JTable table)
+    {
+        int i = table.getSelectedRow();
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String username = model.getValueAt(i, 0).toString();
+        
+        try{
+            Statement st = Database.connectDB().createStatement();   
+        
+            String queryUser = "SELECT roomNumber FROM guest WHERE username = '" + username + "';";
+
+            ResultSet rs = st.executeQuery(queryUser);
+            
+            if(rs.next())
+            {
+                String roomNo;
+                roomNo = rs.getString("roomNumber");
+                
+                String queryOccupied = "SELECT occupied FROM room WHERE roomNumber = '" + roomNo + "';";
+                rs = st.executeQuery(queryOccupied);
+                
+                int occupied;
+                if (rs.next()){
+                    occupied = rs.getInt("occupied");
+                    queryOccupied = "UPDATE `oop`.`room` SET `occupied` = '" + (occupied-1) + "' WHERE `roomNumber` = '" + roomNo + "';";
+                    st.executeUpdate(queryOccupied);
+                    
+                }
+                        
+            }
+    }
+        catch(ArrayIndexOutOfBoundsException e1)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row. \n" , "Please Select a Row!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+        catch(HeadlessException | ClassNotFoundException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a Row! \n" , "Please Select a Row.", JOptionPane.ERROR_MESSAGE);        
+        }
+        UserServices userServices = new UserServicesImpl();
+        userServices.DeleteSelectedRow(table);
     }
 }

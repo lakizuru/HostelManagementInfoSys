@@ -101,6 +101,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         checkInOutBtn = new javax.swing.JButton();
         deleteGuest = new javax.swing.JButton();
         addGuest = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         addStaff = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -108,12 +109,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         addAdminModer1 = new javax.swing.JButton();
         updateStaffTable = new javax.swing.JButton();
         deleteStaff = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         newRoomButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
         updateRoomsTable = new javax.swing.JButton();
         deleteRoom = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         noticeTable = new javax.swing.JTable();
@@ -122,6 +125,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         newNotice = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         loggedUserLbl = new javax.swing.JLabel();
         minimize = new javax.swing.JButton();
@@ -222,7 +226,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(noOfRegGuests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1))
-                        .addGap(74, 74, 74)
+                        .addGap(111, 111, 111)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(noOfAvailGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2))
@@ -319,6 +323,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel6.setText("GUESTS");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -334,14 +341,19 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(deleteGuest)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addGuest)))
+                        .addComponent(addGuest))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -406,6 +418,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel7.setText("STAFF");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -415,7 +430,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(updateStaffTable)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                         .addComponent(deleteStaff)
                         .addGap(36, 36, 36)
                         .addComponent(addAdminModer1)
@@ -423,12 +438,17 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(addStaff))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7)
+                    .addContainerGap(774, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStaff)
@@ -436,6 +456,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(updateStaffTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7)
+                    .addContainerGap(455, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/images/staffRM123.png")), jPanel4); // NOI18N
@@ -483,6 +508,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel8.setText("ROOMS");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -498,12 +526,17 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGap(180, 180, 180)
                         .addComponent(newRoomButton)))
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel8)
+                    .addContainerGap(749, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -511,6 +544,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(deleteRoom))
                     .addComponent(updateRoomsTable))
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel8)
+                    .addContainerGap(455, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/images/room12.png")), jPanel5); // NOI18N
@@ -568,6 +606,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTextArea1.setText("RECIPIENTS TYPES - [1] [2] [3] [4] [5] [6] [7] [8] [9]\n1: Block M\t2: Block W\t3: Block B\t4: Block G\n5: Administration\t6: Kitchen\t7: Laundry\t8: Cleaning\t9: Technical");
         jScrollPane6.setViewportView(jTextArea1);
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel9.setText("NOTICES");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -584,12 +625,17 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(newNotice))
                     .addComponent(jScrollPane6))
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel9)
+                    .addContainerGap(722, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -598,6 +644,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(deleteNotice)
                     .addComponent(RefreshNotif))
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel9)
+                    .addContainerGap(455, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/images/NOTIFICATIONS4321.png")), jPanel7); // NOI18N
@@ -819,8 +870,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void deleteGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGuestActionPerformed
         // TODO add your handling code here:
-        UserServices userService = new UserServicesImpl();
-        userService.DeleteSelectedRow(guestTable);
+        GuestServices guestService = new GuestServicesImpl();
+        guestService.DeleteSelectedRow(guestTable);
         
         TableFunctions.ClearTable(guestTable);
         TableFunctions.RetrieveToTable(guestTable, "SELECT u.username, u.name, u.phone, g.room, g.availability FROM user as u, guest as g WHERE u.username = g.username");
@@ -833,8 +884,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void RefreshNotifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshNotifActionPerformed
         // TODO add your handling code here:
-        TableFunctions.ClearTable(noticeViewTable);
-        TableFunctions.RetrieveToTable(noticeViewTable, "SELECT dateTime, message FROM notice WHERE recipients LIKE '____1____' ORDER BY dateTime DESC");
+        TableFunctions.ClearTable(noticeTable);
+        TableFunctions.RetrieveToTable(noticeTable, "SELECT dateTime, message, recipients FROM notice ORDER BY dateTime DESC");
     }//GEN-LAST:event_RefreshNotifActionPerformed
 
     /**
@@ -907,6 +958,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

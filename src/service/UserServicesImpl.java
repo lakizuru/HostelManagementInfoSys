@@ -9,6 +9,7 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
@@ -90,15 +91,15 @@ public class UserServicesImpl implements UserServices {
     
     public void DeleteSelectedRow(JTable table) {
         int i = table.getSelectedRow();
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String username = model.getValueAt(i, 0).toString();
         
         try{
-            Statement st = Database.connectDB().createStatement();
-            String query = "delete from login where username = '" + username + "';";
-            st.executeUpdate(query);
+            Statement st = Database.connectDB().createStatement();        
+
+            String queryDeleteUser = "delete from login where username = '" + username + "';";
+            st.executeUpdate(queryDeleteUser);
 
         }
         catch(ArrayIndexOutOfBoundsException e1)

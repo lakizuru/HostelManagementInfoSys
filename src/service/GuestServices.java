@@ -17,4 +17,5 @@ public interface GuestServices {
    public int getNoOfAvailGuests();
    public void checkInOut(JTable table);
    public void checkInOut(String username);
+   public void DeleteSelectedRow(JTable table);
 }
