@@ -5,6 +5,7 @@
  */
 package view;
 
+import model.Guest;
 import model.Request;
 import service.RequestServices;
 import service.RequestServicesImpl;
@@ -71,6 +72,11 @@ public class AddRequest extends javax.swing.JFrame {
         });
 
         ExitBT.setText("Exit");
+        ExitBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitBTActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kitchen", "Laundry", "Cleaning", "Technical" }));
@@ -145,6 +151,14 @@ public class AddRequest extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void ExitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitBTActionPerformed
+        // TODO add your handling code here:
+        Guest guest = new Guest();
+        this.dispose();
+        GuestDashboard frameGuest = new GuestDashboard();
+                                frameGuest.setVisible(true);
+    }//GEN-LAST:event_ExitBTActionPerformed
 
     /**
      * @param args the command line arguments
