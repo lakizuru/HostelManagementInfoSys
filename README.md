@@ -8,9 +8,9 @@ This repository contains the complete source code for a Hostel Management System
 
 ## UI/UX
 
-![Login](Docs\Login.jpg)
-![Home](Docs\Home.jpg)
-![Guests](Docs\Guests.jpg)
-![Staff](Docs\Staff.jpg)
-![Rooms](Docs\Rooms.jpg)
-![Notices](Docs\Notices.jpg)
+<img src="Docs\Login.jpg" alt="Login" width="300"/>
+<img src="Docs\Home.jpg" alt="Home" width="600"/>
+<img src="Docs\Guests.jpg" alt="Guests" width="600"/>
+<img src="Docs\Staff.jpg" alt="Staff" width="600"/>
+<img src="Docs\Rooms.jpg" alt="Rooms" width="600"/>
+<img src="Docs\Notices.jpg" alt="Notices" width="600"/>
